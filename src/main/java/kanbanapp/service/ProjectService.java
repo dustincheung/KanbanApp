@@ -22,4 +22,15 @@ public class ProjectService {
 			throw new ProjectTagException("Project Tag " + project.getProjTag().toUpperCase() + " is already used");
 		}
 	}
+	
+	public Project showProject(String projTag) {
+		
+		Project projectToShow = projectRepository.findByProjTag(projTag);
+		
+		if(projectToShow == null) {
+			throw new ProjectTagException("Project Tag " + projTag + " does not exist");
+		}
+		
+		return projectRepository.findByProjTag(projTag);
+	}
 }

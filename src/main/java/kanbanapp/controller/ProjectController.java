@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +28,7 @@ public class ProjectController {
 	
 	@Autowired ErrorMappingService errorMappingService;
 	
+	// Create Route 
 	@RequestMapping(method=RequestMethod.POST, value="/projects")
 	public ResponseEntity<?> createProject(@Valid @RequestBody Project project, BindingResult result){
 		
@@ -39,4 +41,13 @@ public class ProjectController {
 		projectService.createProject(project);
 		return new ResponseEntity<Project>(project, HttpStatus.CREATED);
 	}
+	
+	// Show Route
+	@RequestMapping("/projects/{projTag}")
+	public ResponseEntity<?> showProject(@PathVariable String projTag){
+		Project projectToShow = projectService.showProject(projTag);
+		
+		return new ResponseEntity<Project>(projectToShow, HttpStatus.OK);
+	}
+	
 }
