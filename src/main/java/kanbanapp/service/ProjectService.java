@@ -16,6 +16,12 @@ public class ProjectService {
 	@Autowired
 	private ProjectRepository projectRepository;
 	
+	// gets all projects
+	public Iterable<Project> indexProjects(){
+		return projectRepository.findAll();
+	}
+		
+	// creates a new project 
 	public Project createProject(Project project) {
 		try {
 			project.setProjTag(project.getProjTag().toUpperCase());
@@ -26,6 +32,7 @@ public class ProjectService {
 		}
 	}
 	
+	// gets project that based on projTag
 	public Project showProject(String projTag) {
 		
 		Project projectToShow = projectRepository.findByProjTag(projTag);
@@ -37,8 +44,25 @@ public class ProjectService {
 		return projectRepository.findByProjTag(projTag);
 	}
 	
-	public Iterable<Project> indexProjects(){
-		return projectRepository.findAll();
+	// updates project 
+	public Project updateProject(Project project) {
+		try {
+			////don't need to pass in projTag b/c entity instance already has it, so it will save
+			//over record with matching id as the topic passed
+			return projectRepository.save(project);
+		}catch(Exception e) {
+			throw new ProjectTagException("Project Update failed");
+		}
 	}
 	
+	// deletes a project based on projTag
+	public void deleteProjectByProjTag(String projTag) {
+		Project projectToDelete = projectRepository.findByProjTag(projTag.toUpperCase());
+		
+		if(projectToDelete == null) {
+			throw new ProjectTagException("Project Tag " + projTag + " does not exist");
+		}
+		
+		projectRepository.delete(projectToDelete);
+	}
 }

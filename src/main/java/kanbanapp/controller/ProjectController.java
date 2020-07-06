@@ -28,6 +28,12 @@ public class ProjectController {
 	
 	@Autowired ErrorMappingService errorMappingService;
 	
+	// Index Route
+	@RequestMapping("/projects")
+	public Iterable<Project> indexProjects(){
+		return projectService.indexProjects();
+	}
+	
 	// Create Route 
 	@RequestMapping(method=RequestMethod.POST, value="/projects")
 	public ResponseEntity<?> createProject(@Valid @RequestBody Project project, BindingResult result){
@@ -50,10 +56,20 @@ public class ProjectController {
 		return new ResponseEntity<Project>(projectToShow, HttpStatus.OK);
 	}
 	
-	// Index Route
-	@RequestMapping("/projects")
-	public Iterable<Project> indexProjects(){
-		return projectService.indexProjects();
+	// Update Route
+	@RequestMapping(method=RequestMethod.PUT, value="/projects/{projTag}")
+	public ResponseEntity<?> updateProject(@RequestBody Project project, @PathVariable String projTag){
+		//not necessary to pass in projTag b/c our project in the body will contain primary key id already
+		projectService.updateProject(project);
+		return new ResponseEntity<Project>(project, HttpStatus.OK);
+	}
+	
+	// Delete Route
+	@RequestMapping(method=RequestMethod.DELETE, value="/projects/{projTag}/delete")
+	public ResponseEntity<?> deleteProject(@PathVariable String projTag){
+		projectService.deleteProjectByProjTag(projTag);
+		
+		return new ResponseEntity<String>("Project with Tag: " + projTag + " was deleted successfully", HttpStatus.OK);
 	}
 	
 }
