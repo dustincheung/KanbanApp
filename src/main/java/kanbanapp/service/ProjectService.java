@@ -1,5 +1,8 @@
 package kanbanapp.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,4 +36,9 @@ public class ProjectService {
 		
 		return projectRepository.findByProjTag(projTag);
 	}
+	
+	public Iterable<Project> indexProjects(){
+		return projectRepository.findAll();
+	}
+	
 }

@@ -10,4 +10,7 @@ public interface ProjectRepository extends CrudRepository<Project, Long> {
 
 		//used for show route, instead of the default find by primary key id we are finding by projTag
 		Project findByProjTag(String projTag);
+		
+		@Override
+		Iterable<Project> findAll();
 }

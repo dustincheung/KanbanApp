@@ -50,4 +50,10 @@ public class ProjectController {
 		return new ResponseEntity<Project>(projectToShow, HttpStatus.OK);
 	}
 	
+	// Index Route
+	@RequestMapping("/projects")
+	public Iterable<Project> indexProjects(){
+		return projectService.indexProjects();
+	}
+	
 }
