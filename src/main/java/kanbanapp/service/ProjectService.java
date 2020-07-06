@@ -3,6 +3,7 @@ package kanbanapp.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kanbanapp.Exception.ProjectTagException;
 import kanbanapp.model.Project;
 import kanbanapp.repository.ProjectRepository;
 
@@ -13,7 +14,12 @@ public class ProjectService {
 	private ProjectRepository projectRepository;
 	
 	public Project createProject(Project project) {
-		
-		return projectRepository.save(project);
+		try {
+			project.setProjTag(project.getProjTag().toUpperCase());
+			return projectRepository.save(project);
+			
+		}catch(Exception e) {
+			throw new ProjectTagException("Project Tag " + project.getProjTag().toUpperCase() + " is already used");
+		}
 	}
 }
