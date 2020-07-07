@@ -29,3 +29,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Kanban App ###
+.DS_Store
