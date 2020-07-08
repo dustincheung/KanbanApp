@@ -1,3 +1,7 @@
+/*	
+ * 	Menu Component that is always visible and routes to landing and projectsDashboard component
+ */
+
 import React from "react";
 
 class Menu extends React.Component{
@@ -12,7 +16,7 @@ class Menu extends React.Component{
   				</a>
   				<div className="right menu">
   					<a className="item">
-  					Sign Up
+  						Sign Up
   					</a>
   					<a className="item">
   						Log In

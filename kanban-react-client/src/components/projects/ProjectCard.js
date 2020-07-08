@@ -1,55 +1,90 @@
+/*  
+ *  ProjectCard component renders the summary card view for each project
+ */
+
 import React from "react";
 
 class ProjectCard extends React.Component{
+	
 	render(){
+		if(!this.props.project){
+			return(
+				<div> LOADING </div>
+			)
+		}
+
 		return(
-			<div class="card">
-  				<div class="card-header">
-    				PROJT
-  				</div>
-  				<div class="card-body">
-    				<div class="ui grid">
-    					<div class="four wide column">
-  							<div class="ui small statistics">
-  								<div class="red statistic">
-   								 	<div class="value"> 20 </div>
-    								<div class="label"> Todo </div>
-  								</div>
-  								<div class="yellow statistic">
-    								<div class="value"> 10</div>
-    								<div class="label"> In Progress </div>
-  								</div>
-  								<div class="green statistic">
-    								<div class="value"> 6 </div>
-    								<div class="label"> Done </div>
-  								</div>
-							</div>
+			<div className="card" style={{marginTop: "2%"}}>
+  				{this.renderTag()}
+  				<div className="card-body">
+    				<div className="ui grid">
+    					<div className="four wide column">
+  							{this.renderStats()}
   						</div>
-  						<div class="nine wide column">
-  							<div style={{float: "left"}}>
-  								<h2 class="card-title">Sample Project</h2>
-    							<h5 class="card-text">This is a sample project sample description.</h5>
-  							</div>	
+  						<div className="nine wide column">
+  							{this.renderProjectInfo()}
   						</div>
-  						<div class="three wide column">
-  							<div class="ui vertical labeled icon buttons" style={{float: "right", width: "100%"}}>
-  								<button class="ui button">
-    								<i class="columns icon"></i>
-    								Kanban
-  								</button>
-  								<button class="ui button">
-    								<i class="edit icon"></i>
-   								 	Update
-  								</button>
-  								<button class="ui button">
-    								<i class="trash icon"></i>
-    								Delete
-  								</button>
-							</div>
+  						<div className="three wide column">
+  							{this.renderButtons()}
   						</div>
 					</div>
   				</div>
 			</div>				
+		);
+	}
+
+	renderStats = () => {
+		return(
+			<div className="ui small statistics">
+  				<div className="red statistic">
+   						<div className="value"> 20 </div>
+    				<div className="label"> Todo </div>
+  				</div>
+  				<div className="yellow statistic">
+    				<div className="value"> 10</div>
+    				<div className="label"> In Progress </div>
+  				</div>
+  				<div className="green statistic">
+    				<div className="value"> 6 </div>
+    				<div className="label"> Done </div>
+  				</div>
+			</div>
+		);
+	}
+
+	renderTag = () => {
+		return(
+			<div className="card-header">
+    			{this.props.project.projTag}
+  			</div>
+		);
+	}
+
+	renderProjectInfo = () => {
+		return(
+			<div style={{float: "left"}}>
+  				<h2 className="card-title">{this.props.project.projTitle}</h2>
+    			<h5 className="card-text">{this.props.project.description}</h5>
+  			</div>	
+		);
+	}
+
+	renderButtons = () => {
+		return(
+			<div className="ui vertical labeled icon buttons" style={{float: "right", width: "100%"}}>
+  				<button className="ui button">
+    				<i className="columns icon"></i>
+    				Kanban
+  				</button>
+  				<button className="ui button">
+    				<i className="edit icon"></i>
+   					Update
+  				</button>
+  				<button className="ui button">
+    				<i className="trash icon"></i>
+    				Delete
+  				</button>
+			</div>
 		);
 	}
 }
