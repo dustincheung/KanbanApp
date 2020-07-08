@@ -21,3 +21,22 @@ export const getProjects = () => {
 		dispatch({type: "INDEX_PROJECTS", payload: response.data});
 	}
 }
+
+export const createProject = (formValues) => {
+	return async (dispatch) => {
+		try{
+			const project = {
+				projTitle: formValues.projTitle,
+				projTag: formValues.projTag,
+				description: formValues.description,
+				startDate: formValues.startDate,
+				stopDate: formValues.stopDate
+			}
+
+			const response = await axios.post(uri + "/projects", project);
+			history.push("/projects");
+		}catch(err){
+			dispatch({type: "INDEX_ERRORS", payload: err.response.data});
+		}
+	}
+}

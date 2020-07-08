@@ -22,7 +22,7 @@ class ProjectDashbord extends React.Component{
 
 		return(
 			<div>
-				<div className="jumbotron" style={{padding: "2%"}}>
+				<div className="jumbotron" style={{padding: "2%", backgroundColor: "#F7F7F7"}}>
 					<div className="ui grid">
   						<div className="thirteen wide column">
   							<h1 className="display-4">Projects Dashboard</h1>
