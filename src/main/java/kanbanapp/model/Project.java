@@ -32,16 +32,16 @@ public class Project {
 		@NotBlank(message = "Project Description is a require field")
 		private String description;
 		
-		@JsonFormat(pattern = "MM-dd-yyyy")
+		@JsonFormat(pattern = "yyyy-MM-dd")
 		private Date startDate;
 		
-		@JsonFormat(pattern = "MM-dd-yyyy")
+		@JsonFormat(pattern = "yyyy-MM-dd")
 		private Date endDate;
 		
-		@JsonFormat(pattern = "MM-dd-yyyy")
+		@JsonFormat(pattern = "yyyy-MM-dd")
 		private Date createdDate;
 		
-		@JsonFormat(pattern = "MM-dd-yyyy")
+		@JsonFormat(pattern = "yyyy-MM-dd")
 		private Date updatedDate;
 		
 		// no arg constructor

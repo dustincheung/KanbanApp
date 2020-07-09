@@ -6,10 +6,11 @@ import React from "react";
 import {Router, Route, Switch} from "react-router-dom";
 
 import history from "../history";
+import Menu from "./layout/Menu";
 import Landing from "./layout/Landing";
 import ProjectDashboard from "./projects/ProjectDashboard";
 import ProjectCreate from "./projects/ProjectCreate";
-import Menu from "./layout/Menu";
+import ProjectEdit from "./projects/ProjectEdit";
 
 const App = () => {
 	return(
@@ -21,6 +22,7 @@ const App = () => {
 						<Route path="/" exact component={Landing}/>
 						<Route path="/projects" exact component={ProjectDashboard}/>
 						<Route path="/projects/new" exact component={ProjectCreate}/>
+						<Route path="/projects/:projTag/edit" exact component={ProjectEdit}/>
 					</Switch>
 				</div>
 			</Router>

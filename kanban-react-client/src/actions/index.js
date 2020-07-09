@@ -40,3 +40,41 @@ export const createProject = (formValues) => {
 		}
 	}
 }
+
+export const updateProject = (projTag, formValues) => {
+	return async (dispatch, getState) => {
+		try{
+
+			//we want to use the same project (primary id and projTag) but update the fields that were edited
+			const project = {
+				...getState().project,
+				projTitle: formValues.projTitle,
+				description: formValues.description,
+				startDate: formValues.startDate,
+				endDate: formValues.endDate
+			}
+
+			//b/c our proj has same primary key, mysql db will know to save over the proj with same primary key
+			//otherwise we would have to find and replace project using projTag in backend
+			const response = await axios.put(uri + "/projects/" + projTag, project);
+			history.push("/projects");
+		}catch(err){
+			dispatch({type: "INDEX_ERRORS", payload: err.response.data});
+		}
+	}
+}
+
+//************************************************
+//			PROJECT ACTION CREATORS
+//************************************************
+
+export const getProject = (projTag) => {
+	return async (dispatch) => {
+		try{
+			const response = await axios.get(uri + "/projects/" + projTag);
+			dispatch({type: "GET_PROJECT", payload: response.data});
+		}catch(err){
+			dispatch({type: "INDEX_ERRORS", payload: err.response.data});
+		}
+	}
+}

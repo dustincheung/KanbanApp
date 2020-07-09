@@ -3,6 +3,7 @@
  */
 
 import React from "react";
+import {Link} from "react-router-dom";
 
 class ProjectCard extends React.Component{
 	
@@ -70,16 +71,19 @@ class ProjectCard extends React.Component{
 	}
 
 	renderButtons = () => {
+		
+		let projectEditPath	= "/projects/" + this.props.project.projTag + "/edit";
+
 		return(
 			<div className="ui vertical labeled icon buttons" style={{float: "right", width: "100%"}}>
   				<button className="ui button">
     				<i className="columns icon"></i>
     				Kanban
   				</button>
-  				<button className="ui button">
+  				<Link className="ui button" to={projectEditPath}>
     				<i className="edit icon"></i>
    					Update
-  				</button>
+  				</Link>
   				<button className="ui button">
     				<i className="trash icon"></i>
     				Delete
