@@ -4,6 +4,9 @@
 
 import React from "react";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+
+import {clearProject} from "../../actions";
 
 class Menu extends React.Component{
 	render(){
@@ -12,7 +15,7 @@ class Menu extends React.Component{
   				<Link to="/" className="item">
     				KanbanTool
   				</Link>
-  				<Link to="/projects" className="item">
+  				<Link to="/projects" onClick={this.props.clearProject} className="item">
   					Dashboard
   				</Link>
   				<div className="right menu">
@@ -23,10 +26,9 @@ class Menu extends React.Component{
   						Log In
   					</a>
   				</div>
-  				
 			</div>												
 		);
 	}
 }
 
-export default Menu;
+export default connect(null, {clearProject})(Menu);

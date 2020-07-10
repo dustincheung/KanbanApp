@@ -8,16 +8,22 @@ import {getProject, updateProject} from "../../actions";
 class ProjectEdit extends React.Component{
 
 	componentDidMount(){
+		console.log("componentDidMount CALLED");
 		const projTag = this.props.match.params.projTag;
 		this.props.getProject(projTag);
+
 	}
 
 	render(){
+
+		console.log("RENDER CALLED");
 		if(!this.props.project){
 			return(
 				<div> LOADING </div>
 			)
 		}
+
+		console.log("Render" + this.props.project.projTitle)
 
 		return(
 			<div style={{margin: "5%"}}>
@@ -49,9 +55,11 @@ class ProjectEdit extends React.Component{
 }
 
 const mapStateToProps = (state) => {
+	console.log("mapStateToProps CALLED");
+
 	return{
-		errors: state.errors,
-		project: state.project
+		project: state.project,
+		errors: state.errors
 	};
 }
 

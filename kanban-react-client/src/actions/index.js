@@ -22,6 +22,10 @@ export const getProjects = () => {
 	}
 }
 
+//************************************************
+//			PROJECT ACTION CREATORS
+//************************************************
+
 export const createProject = (formValues) => {
 	return async (dispatch) => {
 		try{
@@ -30,7 +34,7 @@ export const createProject = (formValues) => {
 				projTag: formValues.projTag,
 				description: formValues.description,
 				startDate: formValues.startDate,
-				stopDate: formValues.stopDate
+				endDate: formValues.endDate
 			}
 
 			const response = await axios.post(uri + "/projects", project);
@@ -58,15 +62,13 @@ export const updateProject = (projTag, formValues) => {
 			//otherwise we would have to find and replace project using projTag in backend
 			const response = await axios.put(uri + "/projects/" + projTag, project);
 			history.push("/projects");
+
+			dispatch({type: "CLEAR_PROJECT", payload: null});
 		}catch(err){
 			dispatch({type: "INDEX_ERRORS", payload: err.response.data});
 		}
 	}
 }
-
-//************************************************
-//			PROJECT ACTION CREATORS
-//************************************************
 
 export const getProject = (projTag) => {
 	return async (dispatch) => {
@@ -76,5 +78,11 @@ export const getProject = (projTag) => {
 		}catch(err){
 			dispatch({type: "INDEX_ERRORS", payload: err.response.data});
 		}
+	}
+}
+
+export const clearProject = () => {
+	return async (dispatch) => {
+		dispatch({type: "CLEAR_PROJECT", payload: null});
 	}
 }

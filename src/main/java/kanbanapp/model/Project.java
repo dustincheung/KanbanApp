@@ -38,6 +38,7 @@ public class Project {
 		@JsonFormat(pattern = "yyyy-MM-dd")
 		private Date endDate;
 		
+		@Column(updatable = false) 
 		@JsonFormat(pattern = "yyyy-MM-dd")
 		private Date createdDate;
 		
