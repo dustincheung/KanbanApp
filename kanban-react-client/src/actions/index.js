@@ -8,7 +8,7 @@
  import history from "../history";
 
 //prod and dev uri
-const uri = process.env.REACT_APP_BACKEND_URI || "http://localhost:8080";
+//const uri = process.env.REACT_APP_BACKEND_URI || "http://localhost:8080";
 
 //************************************************
 //			PROJECTS ACTION CREATORS
@@ -16,7 +16,7 @@ const uri = process.env.REACT_APP_BACKEND_URI || "http://localhost:8080";
 
 export const getProjects = () => {
 	return async (dispatch, getState) => {
-		const response = await axios.get(uri + "/projects");
+		const response = await axios.get("/projects");
 
 		dispatch({type: "INDEX_PROJECTS", payload: response.data});
 	}
@@ -24,8 +24,10 @@ export const getProjects = () => {
 
 export const deleteProject = (projTag) => {
 	return async (dispatch) => {
-		await axios.delete(uri + "/projects/" + projTag + "/delete");
-		dispatch({type: "DELETE_PROJECT", payload: projTag});
+		if(window.confirm("Deleting project will also delete all data associated with it.  Are you sure you want to delete?")){
+			await axios.delete("/projects/" + projTag + "/delete");
+			dispatch({type: "DELETE_PROJECT", payload: projTag});
+		}
 	}
 }
 
@@ -44,7 +46,7 @@ export const createProject = (formValues) => {
 				endDate: formValues.endDate
 			}
 
-			const response = await axios.post(uri + "/projects", project);
+			const response = await axios.post("/projects", project);
 			history.push("/projects");
 		}catch(err){
 			dispatch({type: "INDEX_ERRORS", payload: err.response.data});
@@ -67,7 +69,7 @@ export const updateProject = (projTag, formValues) => {
 
 			//b/c our proj has same primary key, mysql db will know to save over the proj with same primary key
 			//otherwise we would have to find and replace project using projTag in backend
-			const response = await axios.put(uri + "/projects/" + projTag, project);
+			const response = await axios.put("/projects/" + projTag, project);
 			history.push("/projects");
 
 			dispatch({type: "CLEAR_PROJECT", payload: null});
@@ -80,7 +82,7 @@ export const updateProject = (projTag, formValues) => {
 export const getProject = (projTag) => {
 	return async (dispatch) => {
 		try{
-			const response = await axios.get(uri + "/projects/" + projTag);
+			const response = await axios.get("/projects/" + projTag);
 			dispatch({type: "GET_PROJECT", payload: response.data});
 		}catch(err){
 			dispatch({type: "INDEX_ERRORS", payload: err.response.data});
