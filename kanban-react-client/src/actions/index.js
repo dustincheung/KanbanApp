@@ -22,6 +22,13 @@ export const getProjects = () => {
 	}
 }
 
+export const deleteProject = (projTag) => {
+	return async (dispatch) => {
+		await axios.delete(uri + "/projects/" + projTag + "/delete");
+		dispatch({type: "DELETE_PROJECT", payload: projTag});
+	}
+}
+
 //************************************************
 //			PROJECT ACTION CREATORS
 //************************************************

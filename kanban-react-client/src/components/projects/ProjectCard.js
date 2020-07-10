@@ -4,6 +4,9 @@
 
 import React from "react";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+
+import {deleteProject} from "../../actions";
 
 class ProjectCard extends React.Component{
 	
@@ -72,7 +75,7 @@ class ProjectCard extends React.Component{
 
 	renderButtons = () => {
 		
-		let projectEditPath	= "/projects/" + this.props.project.projTag + "/edit";
+		const projectEditPath	= "/projects/" + this.props.project.projTag + "/edit";
 
 		return(
 			<div className="ui vertical labeled icon buttons" style={{float: "right", width: "100%"}}>
@@ -84,13 +87,18 @@ class ProjectCard extends React.Component{
     				<i className="edit icon"></i>
    					Update
   				</Link>
-  				<button className="ui button">
+  				<button className="ui button" onClick={(event) => this.onDeleteClick(event)}>
     				<i className="trash icon"></i>
     				Delete
   				</button>
 			</div>
 		);
 	}
+
+  onDeleteClick = (event) => {
+      event.stopPropagation();
+      this.props.deleteProject(this.props.project.projTag);
+    }
 }
 
-export default ProjectCard;
+export default connect(null, {deleteProject})(ProjectCard);
