@@ -18,26 +18,28 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class Backlog {
 	
-	//primary key, id will use database server side strategy to dictate value (auto-increment)
+	// primary key, id will use database server side strategy to dictate value (auto-increment)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	private Integer taskSequence = 0;
 	
-	//api uses projTag as main key of identification, this field provides us easy access to associated projTag
+	// this incrementor is used in the taskTag, it is appeneded to the projTag to create a readable taskTag (PROJ-1)
+	private Integer taskSeqIncrementor = 1;
+	
+	// api uses projTag as main key of identification, this field provides us easy access to associated projTag
 	private String projTag;
 	
-	//OneToOne relationship with project
+	// Foreign Key: OneToOne relationship with project
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "project_id", nullable = false)
 	@JsonIgnore
 	private Project project;
 	
-	//Foreign Key: OneToMany relationship with tasks
+	// Foreign Key: OneToMany relationship with tasks
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "backlog")
 	private List<Task> tasks = new ArrayList<>();
 	
-	//no-arg constructor
+	// no-arg constructor
 	public Backlog() {
 		
 	}
@@ -50,12 +52,12 @@ public class Backlog {
 		this.id = id;
 	}
 
-	public Integer getTaskSequence() {
-		return taskSequence;
+	public Integer getTaskSeqIncrementor() {
+		return taskSeqIncrementor;
 	}
 
-	public void setTaskSequence(Integer taskSequence) {
-		this.taskSequence = taskSequence;
+	public void setTaskSeqIncrementor(Integer taskSeqIncrementor) {
+		this.taskSeqIncrementor = taskSeqIncrementor;
 	}
 
 	public String getProjTag() {

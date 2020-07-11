@@ -18,6 +18,8 @@ import javax.validation.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import kanbanapp.util.TaskStatus;
+
 @Entity
 public class Task {
 	
@@ -26,8 +28,9 @@ public class Task {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	//we will use this as a formatted type "id": PROJ-1 where PROJ is projTag and 1 is taskSeqIncrementor from backlog
 	@Column(updatable = false)
-	private String projSequence;
+	private String taskTag;
 
 	@Column(updatable = false)
 	private String projTag;
@@ -42,7 +45,7 @@ public class Task {
 	
 	private Integer priority;
 	
-	private String status;
+	private TaskStatus status;
 	
 	private Date dueDate;
 	
@@ -85,12 +88,12 @@ public class Task {
 		this.id = id;
 	}
 
-	public String getProjSequence() {
-		return projSequence;
+	public String getTaskTag() {
+		return taskTag;
 	}
 
-	public void setProjSequence(String projSequence) {
-		this.projSequence = projSequence;
+	public void setTaskTag(String taskTag) {
+		this.taskTag = taskTag;
 	}
 
 	public String getTaskTitle() {
@@ -125,11 +128,11 @@ public class Task {
 		this.priority = priority;
 	}
 
-	public String getStatus() {
+	public TaskStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(TaskStatus status) {
 		this.status = status;
 	}
 
