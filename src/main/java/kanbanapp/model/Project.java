@@ -1,10 +1,13 @@
 package kanbanapp.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotBlank;
@@ -16,7 +19,8 @@ import java.util.Date;
 
 @Entity
 public class Project {
-
+		
+		// primary key, id will use database server side strategy to dictate value (auto-increment)
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		private Long id;
@@ -45,9 +49,27 @@ public class Project {
 		@JsonFormat(pattern = "yyyy-MM-dd")
 		private Date updatedDate;
 		
+		// fetch type: eager means fetch load associated data immediately w/ the rest of the fields
+		// cascade type: specifies the Project is the "owning" side of the relationship (if proj is deleted, all children objs are deleted)
+		// mappedBy: specifies exact name of project field in Backlog obj
+		@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project")
+		private Backlog backlog;
+		
 		// no arg constructor
 		public Project() {
 			
+		}
+		
+		@PrePersist
+		// stores the date of creation when a Project object is created
+		protected void onCreate() {
+			this.createdDate = new Date();
+		}
+		
+		@PreUpdate
+		// stores the date of update when a Project object is updated
+		protected void onUpdate(){
+			this.updatedDate = new Date();
 		}
 		
 		// getters/setters for all class fields
@@ -115,16 +137,11 @@ public class Project {
 			this.updatedDate = updatedDate;
 		}
 
-		@PrePersist
-		// stores the date of creation when a Project object is created
-		protected void onCreate() {
-			this.createdDate = new Date();
+		public Backlog getBacklog() {
+			return backlog;
 		}
-		
-		@PreUpdate
-		// stores the date of update when a Project object is updated
-		protected void onUpdate(){
-			this.updatedDate = new Date();
-		}
-		
+
+		public void setBacklog(Backlog backlog) {
+			this.backlog = backlog;
+		}	
 }
