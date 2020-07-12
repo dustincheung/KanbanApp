@@ -1,5 +1,7 @@
 package kanbanapp.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,13 @@ public class TaskController {
 	@Autowired
 	ErrorMappingService errorMappingService;
 	
+	// Index Route
+	@RequestMapping("/projects/{projTag}/tasks")
+	public Iterable<Task> indexTasks (@PathVariable String projTag){
+		return taskService.indexTasks(projTag);
+	}
+	
+	// Create Route
 	@RequestMapping(method = RequestMethod.POST, value="/projects/{projTag}/tasks")
 	public ResponseEntity<?> createTask(@Valid @RequestBody Task task, @PathVariable String projTag, BindingResult result){
 		

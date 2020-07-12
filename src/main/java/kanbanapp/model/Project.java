@@ -14,6 +14,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Date;
 
@@ -53,6 +54,7 @@ public class Project {
 		// cascade type: specifies the Project is the "owning" side of the relationship (if proj is deleted, all children objs are deleted)
 		// mappedBy: specifies exact name of project field in Backlog obj
 		@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project")
+		@JsonIgnore
 		private Backlog backlog;
 		
 		// no arg constructor

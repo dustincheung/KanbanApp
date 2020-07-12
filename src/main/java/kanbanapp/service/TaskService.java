@@ -1,5 +1,7 @@
 package kanbanapp.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,11 @@ public class TaskService {
 	
 	@Autowired
 	private TaskRepository taskRepository;
+	
+	// indexes all tasks associated to a Backlog projTag
+	public Iterable<Task> indexTasks(String projTag){
+		return taskRepository.findByProjTagOrderByPriority(projTag);
+	}
 	
 	// creates a new task, takes in new task obj and associated Backlog projTag
 	public Task createTask(Task task, String projTag) {
