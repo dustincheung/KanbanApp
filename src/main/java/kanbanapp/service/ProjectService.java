@@ -20,6 +20,7 @@ public class ProjectService {
 	
 	// gets all projects
 	public Iterable<Project> indexProjects(){
+		
 		return projectRepository.findAll();
 	}
 		

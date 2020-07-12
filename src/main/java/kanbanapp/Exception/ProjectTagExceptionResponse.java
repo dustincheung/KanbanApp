@@ -1,3 +1,7 @@
+/*
+ *  This class is the exception response, it contains a single string message
+ */
+
 package kanbanapp.Exception;
 
 public class ProjectTagExceptionResponse {
