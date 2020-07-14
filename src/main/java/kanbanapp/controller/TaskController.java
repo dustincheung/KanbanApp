@@ -50,4 +50,12 @@ public class TaskController {
 		
 		return new ResponseEntity<Task>(newTask, HttpStatus.CREATED);
 	}
+	
+	// Show Route
+	@RequestMapping("/projects/{projTag}/tasks/{taskTag}")
+	public ResponseEntity<?> showTask(@PathVariable String projTag, @PathVariable String taskTag){
+		Task task = taskService.showTask(projTag, taskTag);
+		
+		return new ResponseEntity<Task>(task, HttpStatus.OK);
+	}
 }

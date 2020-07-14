@@ -11,4 +11,6 @@ import kanbanapp.model.Task;
 public interface TaskRepository extends CrudRepository<Task, Long>{
 	
 	List<Task> findByProjTagOrderByPriority(String projTag);
+	
+	Task findByTaskTag(String taskTag);
 }

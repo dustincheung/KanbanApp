@@ -56,4 +56,30 @@ public class TaskService {
 			throw new BacklogNotFoundException("Backlog with the projTag specified not found");
 		}
 	}
+	
+	// shows a unique task by first finding task by unique taskTag
+	// ensures backlog exists, task exists, and backlog from path contains task
+	public Task showTask(String projTag, String taskTag) {
+		
+		// checking backlog
+		Backlog backlog = backlogRepository.findByProjTag(projTag);
+		
+		if(backlog == null) {
+			throw new BacklogNotFoundException("Backlog with projTag " + projTag + " does not exist");
+		}
+		
+		// checking task
+		Task task = taskRepository.findByTaskTag(taskTag);
+		
+		if(task == null) {
+			throw new BacklogNotFoundException("Task with taskTag " + taskTag + " does not exist");
+		}
+		
+		// checking if task found belongs to correct backlog
+		if(!task.getProjTag().contentEquals(backlog.getProjTag())) {
+			throw new BacklogNotFoundException("Task with taskTag " + taskTag + " does not belong in backlog with projTag " + projTag);
+		}
+		
+		return task;
+	}
 }

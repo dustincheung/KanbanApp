@@ -32,7 +32,7 @@ public class Task {
 	@Column(updatable = false)
 	private String taskTag;
 
-	@Column(updatable = false)
+	@Column(updatable = false, unique = true)
 	private String projTag;
 	
 	@NotBlank(message = "Please enter a task title")
