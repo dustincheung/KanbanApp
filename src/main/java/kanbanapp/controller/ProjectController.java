@@ -33,7 +33,7 @@ public class ProjectController {
 	}
 	
 	// Create Route 
-	@RequestMapping(method=RequestMethod.POST, value="/projects")
+	@RequestMapping(method = RequestMethod.POST, value = "/projects")
 	public ResponseEntity<?> createProject(@Valid @RequestBody Project project, BindingResult result){
 		
 		ResponseEntity<?> mapErrors = errorMappingService.mapErrors(result);
@@ -55,7 +55,7 @@ public class ProjectController {
 	}
 	
 	// Update Route
-	@RequestMapping(method=RequestMethod.PUT, value="/projects/{projTag}")
+	@RequestMapping(method = RequestMethod.PUT, value = "/projects/{projTag}")
 	public ResponseEntity<?> updateProject(@RequestBody Project project, @PathVariable String projTag){
 		//not necessary to pass in projTag b/c our project in the body will contain primary key id already
 		projectService.updateProject(project);
@@ -63,7 +63,7 @@ public class ProjectController {
 	}
 	
 	// Delete Route
-	@RequestMapping(method=RequestMethod.DELETE, value="/projects/{projTag}/delete")
+	@RequestMapping(method = RequestMethod.DELETE, value = "/projects/{projTag}/delete")
 	public ResponseEntity<?> deleteProject(@PathVariable String projTag){
 		projectService.deleteProjectByProjTag(projTag);
 		

@@ -36,7 +36,9 @@ public class Backlog {
 	private Project project;
 	
 	// Foreign Key: OneToMany relationship with tasks
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "backlog")
+	// Refresh: indicates to refresh tasks list when it is modified (such as when a task is deleted)
+	// OrphanRemoval: when backlog is deleted, we want the orphaned tasks to be also deleted
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, mappedBy = "backlog", orphanRemoval = true)
 	private List<Task> tasks = new ArrayList<>();
 	
 	// no-arg constructor

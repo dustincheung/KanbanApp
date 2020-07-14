@@ -82,4 +82,24 @@ public class TaskService {
 		
 		return task;
 	}
+	
+	// updates a task and takes in new updated task
+	public Task updateTask(Task updatedTask) {
+		try {
+			return taskRepository.save(updatedTask);
+		}catch(Exception e) {
+			throw new BacklogNotFoundException("Task update failed");
+		}
+	}
+	
+	// deletes a task with 
+	public void deleteTaskbyTaskTag(String taskTag) {
+		Task taskToDelete = taskRepository.findByTaskTag(taskTag);
+		
+		if(taskToDelete == null) {
+			throw new BacklogNotFoundException("Task Tag " + taskTag + " does not exist");
+		}
+		
+		taskRepository.delete(taskToDelete);
+	}
 }

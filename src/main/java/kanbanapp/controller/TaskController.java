@@ -37,7 +37,7 @@ public class TaskController {
 	}
 	
 	// Create Route
-	@RequestMapping(method = RequestMethod.POST, value="/projects/{projTag}/tasks")
+	@RequestMapping(method = RequestMethod.POST, value = "/projects/{projTag}/tasks")
 	public ResponseEntity<?> createTask(@Valid @RequestBody Task task, @PathVariable String projTag, BindingResult result){
 		
 		ResponseEntity<?> mapErrors = errorMappingService.mapErrors(result);
@@ -57,5 +57,28 @@ public class TaskController {
 		Task task = taskService.showTask(projTag, taskTag);
 		
 		return new ResponseEntity<Task>(task, HttpStatus.OK);
+	}
+	
+	// Update Route is passed in updated task obj in request body
+	@RequestMapping(method = RequestMethod.PUT, value = "/projects/{projTag}/tasks/{taskTag}")
+	public ResponseEntity<?> updateTask(@Valid @RequestBody Task task, @PathVariable String projTag, @PathVariable String taskTag, BindingResult result){
+		
+		ResponseEntity<?> mapErrors = errorMappingService.mapErrors(result);
+		
+		if(mapErrors != null) {
+			return mapErrors;
+		}
+		
+		Task updatedTask = taskService.updateTask(task);
+		
+		return new ResponseEntity<Task>(updatedTask, HttpStatus.OK);
+	}
+	
+	// Delete Route
+	@RequestMapping(method = RequestMethod.DELETE, value = "/projects/{projTag}/tasks/{taskTag}/delete")
+	public ResponseEntity<?> deleteTask(@PathVariable String projTag, @PathVariable String taskTag){
+		taskService.deleteTaskbyTaskTag(taskTag);
+		
+		return new ResponseEntity<String>("Task with task tag: " + taskTag + " was deleted successfully", HttpStatus.OK);
 	}
 }

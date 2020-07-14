@@ -57,13 +57,13 @@ public class ProjectService {
 	}
 	
 	// updates project: don't need to pass in projTag b/c entity instance already has it, so it will save
-	// over record with matching id as the topic passed
-	public Project updateProject(Project project) {
+	// over record with matching id as the project passed
+	public Project updateProject(Project updatedProject) {
 		try {
 			//associated backlog will not be passed in req body
 			//project's backlog is set with backlog that is found 
-			project.setBacklog(backlogRepository.findByProjTag(project.getProjTag()));
-			return projectRepository.save(project);
+			updatedProject.setBacklog(backlogRepository.findByProjTag(updatedProject.getProjTag()));
+			return projectRepository.save(updatedProject);
 		}catch(Exception e) {
 			throw new ProjectTagException("Project Update failed");
 		}

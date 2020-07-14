@@ -23,12 +23,12 @@ import kanbanapp.util.TaskStatus;
 @Entity
 public class Task {
 	
-	//primary key, id will use database server side strategy to dictate value (auto-increment)
+	// primary key, id will use database server side strategy to dictate value (auto-increment)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	//we will use this as a formatted type "id": PROJ-1 where PROJ is projTag and 1 is taskSeqIncrementor from backlog
+	// we will use this as a formatted type "id": PROJ-1 where PROJ is projTag and 1 is taskSeqIncrementor from backlog
 	@Column(updatable = false)
 	private String taskTag;
 
@@ -49,9 +49,8 @@ public class Task {
 	
 	private Date dueDate;
 	
-	//ManyToOne relationship with Backlog
-	//Refresh: indicates to owner entity (backlog) when a task is deleted it will refresh parent entity
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+	// ManyToOne relationship with Backlog
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="backlog_id", nullable = false, updatable = false)
 	@JsonIgnore
 	private Backlog backlog;
