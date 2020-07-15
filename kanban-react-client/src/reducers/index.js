@@ -8,11 +8,13 @@ import {reducer as formReducer} from "redux-form";
 
 import projectsReducer from "./projectsReducer";
 import projectReducer from "./projectReducer";
+import tasksReducer from "./tasksReducer";
 import errorsReducer from "./errorsReducer";
 
 export default combineReducers({
  projects: projectsReducer,
  project: projectReducer,
+ tasks: tasksReducer,
  errors: errorsReducer,
  form: formReducer				//formReducer is an already built in reducer that is imported from redux-form
 });

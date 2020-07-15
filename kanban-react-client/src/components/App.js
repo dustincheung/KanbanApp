@@ -11,6 +11,8 @@ import Landing from "./layout/Landing";
 import ProjectDashboard from "./projects/ProjectDashboard";
 import ProjectCreate from "./projects/ProjectCreate";
 import ProjectEdit from "./projects/ProjectEdit";
+import TaskBoard from "./tasks/TaskBoard";
+import TaskCreate from "./tasks/TaskCreate";
 
 const App = () => {
 	return(
@@ -23,6 +25,8 @@ const App = () => {
 						<Route path="/projects" exact component={ProjectDashboard}/>
 						<Route path="/projects/new" exact component={ProjectCreate}/>
 						<Route path="/projects/:projTag/edit" exact component={ProjectEdit}/>
+						<Route path="/projects/:projTag/tasks" exact component={TaskBoard}/>
+						<Route path="/projects/:projTag/tasks/new" exact component={TaskCreate}/>
 					</Switch>
 				</div>
 			</Router>

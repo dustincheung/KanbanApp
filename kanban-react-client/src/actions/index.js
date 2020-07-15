@@ -31,10 +31,6 @@ export const deleteProject = (projTag) => {
 	}
 }
 
-//************************************************
-//			PROJECT ACTION CREATORS
-//************************************************
-
 export const createProject = (formValues) => {
 	return async (dispatch) => {
 		try{
@@ -53,6 +49,10 @@ export const createProject = (formValues) => {
 		}
 	}
 }
+
+//************************************************
+//			PROJECT ACTION CREATORS
+//************************************************
 
 export const updateProject = (projTag, formValues) => {
 	return async (dispatch, getState) => {
@@ -93,5 +93,37 @@ export const getProject = (projTag) => {
 export const clearProject = () => {
 	return async (dispatch) => {
 		dispatch({type: "CLEAR_PROJECT", payload: null});
+	}
+}
+
+//************************************************
+//			TASKS ACTION CREATORS
+//************************************************
+
+export const getTasks = (projTag) => {
+	return async (dispatch) => {
+		const response = await axios.get("/projects/" + projTag + "/tasks");
+		
+		dispatch({type: "INDEX_TASKS", payload: response.data});
+	}
+}
+
+export const createTask = (formValues, projTag) => {
+	return async (dispatch) => {
+		try{
+			const task = {
+				taskTitle: formValues.taskTitle,
+				taskDescription: formValues.taskDescription,
+				acceptCriteria: formValues.acceptCriteria,
+				dueDate: formValues.dueDate,
+				priority: formValues.priority,
+				status: formValues.status
+			}
+
+			const response = await axios.post("/projects/" + projTag + "/tasks", task);
+			history.push("/projects/" + projTag + "/tasks");
+		}catch(err){
+			dispatch({type: "INDEX_ERRORS", payload: err.response.data});
+		}
 	}
 }

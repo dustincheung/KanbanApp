@@ -76,13 +76,14 @@ class ProjectCard extends React.Component{
 	renderButtons = () => {
 		
 		const projectEditPath	= "/projects/" + this.props.project.projTag + "/edit";
+    const backlogPath = "/projects/" + this.props.project.projTag + "/tasks";
 
 		return(
 			<div className="ui vertical labeled icon buttons" style={{float: "right", width: "100%"}}>
-  				<button className="ui button">
+  				<Link className="ui button" to={backlogPath}>
     				<i className="columns icon"></i>
     				Kanban
-  				</button>
+  				</Link>
   				<Link className="ui button" to={projectEditPath}>
     				<i className="edit icon"></i>
    					Update

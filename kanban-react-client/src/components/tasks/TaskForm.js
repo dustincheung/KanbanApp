@@ -1,25 +1,26 @@
 import React from "react";
 import {Field, reduxForm} from 'redux-form'; //import Field component and reduxForm function
 
-class ProjectForm extends React.Component {
+class TaskForm extends React.Component {
 	render(){
 		return(
 			<form className="ui form error" onSubmit={this.props.handleSubmit(this.onSubmit)} style={{width: "50%", margin: "auto", paddingTop: "5%"}}>
 				<div className="form-row">
 					<div className="form-group col-md-8">
-						<Field name="projTitle" label="Title: " component={this.renderFieldText}/>
+						<Field name="taskTitle" label="Task Title: " component={this.renderFieldText}/>
 					</div>
 					<div className="form-group col-md-4">
-						<Field name="projTag" label="Tag (5 digits): " component={this.renderFieldText}/>
+						<Field name="dueDate" label="Due Date:  " component={this.renderFieldDate}/>
 					</div>
 				</div>
-				<Field name="description" label="Description: " component={this.renderFieldText}/>
+				<Field name="taskDescription" label="Description: " component={this.renderFieldText}/>
+				<Field name="acceptCriteria" label="Acceptance Criteria: " component={this.renderFieldText}/>
 				 <div className="form-row">
     				<div className="col">
-    				  <Field name="startDate" label="Start Date:  " component={this.renderFieldDate}/>
+    				  <Field name="priority" label="Priority:  " component={this.renderPriorityDropDown}/>
    				 	</div>
     				<div className="col">
-     				 <Field name="endDate" label="End Date:  " component={this.renderFieldDate}/>
+     				 <Field name="status" label="Status:  " component={this.renderStatusDropDown}/>
     				</div>
   				</div>				
 				<div className="text-center">
@@ -45,7 +46,6 @@ class ProjectForm extends React.Component {
 		); 
 	}
 
-	//functional component that renders date input, and also accepts redux formProps
 	renderFieldDate = (formProps) => {
 		return(
 			<div className="form-group">
@@ -53,10 +53,37 @@ class ProjectForm extends React.Component {
 				<input
                       type="date"
                       className="form-control form-control-lg"
-                      name="start_date"
                       value={formProps.input.value}
                       onChange={formProps.input.onChange}
                 />
+                {this.renderError(formProps.meta)}
+			</div>
+		);
+	}
+
+	renderPriorityDropDown = (formProps) => {
+		return(
+			<div className="form-group">
+				<label>{formProps.label}</label>
+					<select className="ui search dropdown" value={formProps.input.value} onChange={formProps.input.onChange}>
+      					<option value={3}>Low</option>
+      					<option value={2}>Medium</option>
+      					<option value={1}>High</option>
+      				</select>	
+                {this.renderError(formProps.meta)}
+			</div>
+		);
+	}
+
+	renderStatusDropDown = (formProps) => {
+		return(
+			<div className="form-group">
+				<label>{formProps.label}</label>
+					<select className="ui search dropdown" value={formProps.input.value} onChange={formProps.input.onChange}>
+      					<option value="Todo">Todo</option>
+      					<option value="In Progress">In Progress</option>
+      					<option value="Done">Done</option>
+      				</select>	
                 {this.renderError(formProps.meta)}
 			</div>
 		);
@@ -82,27 +109,19 @@ class ProjectForm extends React.Component {
 const validate = (formValues) => {
 	const errors ={};
 
-	if(!formValues.projTitle){
-		errors.projTitle = "Please enter a title";
+	if(!formValues.taskTitle){
+		errors.taskTitle = "Please enter a title";
 	}
 
-	if(!formValues.description){
-		errors.description = "Please enter a description";
+	if(!formValues.dueDate){
+		errors.dueDate = "Please enter a due date";
 	}
 
-	if(!formValues.projTag){
-		errors.projTag = "Please enter a tag";
-	}
-
-	if(!formValues.startDate){
-		errors.startDate = "Please enter a start date";
-	}
-
-	if(!formValues.endDate){
-		errors.endDate = "Please enter an end date";
+	if(!formValues.taskDescription){
+		errors.taskDescription = "Please enter a task description";
 	}
 
 	return errors;
 };
 
-export default reduxForm({form: "projectForm", validate: validate})(ProjectForm);
+export default reduxForm({form: "taskForm", validate: validate})(TaskForm);

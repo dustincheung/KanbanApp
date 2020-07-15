@@ -2,7 +2,6 @@ package kanbanapp.model;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,8 +17,6 @@ import javax.validation.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import kanbanapp.util.TaskStatus;
-
 @Entity
 public class Task {
 	
@@ -29,10 +26,10 @@ public class Task {
 	private long id;
 	
 	// we will use this as a formatted type "id": PROJ-1 where PROJ is projTag and 1 is taskSeqIncrementor from backlog
-	@Column(updatable = false)
+	@Column(updatable = false, unique = true)
 	private String taskTag;
 
-	@Column(updatable = false, unique = true)
+	@Column(updatable = false)
 	private String projTag;
 	
 	@NotBlank(message = "Please enter a task title")
@@ -45,7 +42,7 @@ public class Task {
 	
 	private Integer priority;
 	
-	private TaskStatus status;
+	private String status;
 	
 	private Date dueDate;
 	
@@ -127,11 +124,11 @@ public class Task {
 		this.priority = priority;
 	}
 
-	public TaskStatus getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(TaskStatus status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 

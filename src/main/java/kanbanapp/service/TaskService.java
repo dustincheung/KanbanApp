@@ -1,7 +1,5 @@
 package kanbanapp.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +8,6 @@ import kanbanapp.model.Backlog;
 import kanbanapp.model.Task;
 import kanbanapp.repository.BacklogRepository;
 import kanbanapp.repository.TaskRepository;
-import kanbanapp.util.TaskStatus;
 
 @Service
 public class TaskService {
@@ -48,8 +45,10 @@ public class TaskService {
 				task.setPriority(3);
 			}
 			
-			// set initial status as todo
-			task.setStatus(TaskStatus.TODO);
+			// set Todo status if no status is initially specified
+			if(task.getStatus() == null || task.getStatus().isEmpty()) {
+				task.setStatus("Todo");
+			}
 			
 			return taskRepository.save(task);
 		}catch(Exception e) {
