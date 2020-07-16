@@ -53,6 +53,16 @@ export const createProject = (formValues) => {
 //************************************************
 //			PROJECT ACTION CREATORS
 //************************************************
+export const getProject = (projTag) => {
+	return async (dispatch) => {
+		try{
+			const response = await axios.get("/projects/" + projTag);
+			dispatch({type: "GET_PROJECT", payload: response.data});
+		}catch(err){
+			dispatch({type: "INDEX_ERRORS", payload: err.response.data});
+		}
+	}
+}
 
 export const updateProject = (projTag, formValues) => {
 	return async (dispatch, getState) => {
@@ -73,17 +83,6 @@ export const updateProject = (projTag, formValues) => {
 			history.push("/projects");
 
 			dispatch({type: "CLEAR_PROJECT", payload: null});
-		}catch(err){
-			dispatch({type: "INDEX_ERRORS", payload: err.response.data});
-		}
-	}
-}
-
-export const getProject = (projTag) => {
-	return async (dispatch) => {
-		try{
-			const response = await axios.get("/projects/" + projTag);
-			dispatch({type: "GET_PROJECT", payload: response.data});
 		}catch(err){
 			dispatch({type: "INDEX_ERRORS", payload: err.response.data});
 		}
@@ -122,6 +121,47 @@ export const createTask = (formValues, projTag) => {
 
 			const response = await axios.post("/projects/" + projTag + "/tasks", task);
 			history.push("/projects/" + projTag + "/tasks");
+		}catch(err){
+			dispatch({type: "INDEX_ERRORS", payload: err.response.data});
+		}
+	}
+}
+
+//************************************************
+//			TASK ACTION CREATORS
+//************************************************
+
+export const getTask = (projTag, taskTag) => {
+	return async (dispatch) => {
+		try{
+			const response = await axios.get("/projects/" + projTag + "/tasks/" + taskTag);
+			dispatch({type: "GET_TASK", payload: response.data});
+		}catch(err){
+			dispatch({type: "INDEX_ERRORS", payload: err.response.data});
+		}
+	}
+}
+
+export const updateTask = (projTag, taskTag, formValues) => {
+	return async (dispatch, getState) => {
+		try{
+			//we want to use the same project (task id and taskTag) but update the fields that were edited
+			const task = {
+				...getState().task,
+				taskTitle: formValues.taskTitle, 
+				dueDate: formValues.dueDate, 
+				taskDescription: formValues.taskDescription, 
+				acceptCriteria: formValues.acceptCriteria,
+				priority: formValues.priority,
+				status: formValues.status
+			}
+
+			//b/c our task has same primary key, mysql db will know to save over the task with same primary key
+			//otherwise we would have to find and replace task using taskTag in backend
+			const response = await axios.put("/projects/" + projTag + "/tasks/" + taskTag, task);
+			history.push("/projects/" + projTag + "/tasks");
+
+			dispatch({type: "CLEAR_PROJECT", payload: null});
 		}catch(err){
 			dispatch({type: "INDEX_ERRORS", payload: err.response.data});
 		}

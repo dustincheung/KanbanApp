@@ -22,13 +22,10 @@ class ProjectCard extends React.Component{
   				{this.renderTag()}
   				<div className="card-body">
     				<div className="ui grid">
-    					<div className="four wide column">
-  							{this.renderStats()}
-  						</div>
-  						<div className="nine wide column">
+  						<div className="ten wide column">
   							{this.renderProjectInfo()}
   						</div>
-  						<div className="three wide column">
+  						<div className="six wide column">
   							{this.renderButtons()}
   						</div>
 					</div>
@@ -37,30 +34,31 @@ class ProjectCard extends React.Component{
 		);
 	}
 
+  renderTag = () => {
+    return(
+      <div className="card-header">
+          {this.props.project.projTag}
+          {this.renderStats()}
+      </div>
+    );
+  }
+
 	renderStats = () => {
 		return(
-			<div className="ui small statistics">
-  				<div className="red statistic">
+			<div className="ui mini statistics" style={{marginRight: "1%", float: "right"}}>
+  				<div className="ui horizontal red statistic">
    						<div className="value"> 20 </div>
     				<div className="label"> Todo </div>
   				</div>
-  				<div className="yellow statistic">
+  				<div className="ui horizontal yellow statistic">
     				<div className="value"> 10</div>
     				<div className="label"> In Progress </div>
   				</div>
-  				<div className="green statistic">
+  				<div className="ui horizontal green statistic">
     				<div className="value"> 6 </div>
     				<div className="label"> Done </div>
   				</div>
 			</div>
-		);
-	}
-
-	renderTag = () => {
-		return(
-			<div className="card-header">
-    			{this.props.project.projTag}
-  			</div>
 		);
 	}
 
@@ -79,7 +77,7 @@ class ProjectCard extends React.Component{
     const backlogPath = "/projects/" + this.props.project.projTag + "/tasks";
 
 		return(
-			<div className="ui vertical labeled icon buttons" style={{float: "right", width: "100%"}}>
+			<div className="ui vertical labeled icon buttons" style={{float: "right", width: "80%"}}>
   				<Link className="ui button" to={backlogPath}>
     				<i className="columns icon"></i>
     				Kanban

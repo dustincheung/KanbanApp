@@ -11,7 +11,7 @@ class ProjectsList extends React.Component{
 		let projects = this.props.projects;
 
 		return(
-			<div>
+			<div className="ui two cards">
 				{projects.map((project) => 
 					<ProjectCard project={project} key={project.projTag}/>
 				)}

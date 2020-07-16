@@ -13,10 +13,11 @@ import ProjectCreate from "./projects/ProjectCreate";
 import ProjectEdit from "./projects/ProjectEdit";
 import TaskBoard from "./tasks/TaskBoard";
 import TaskCreate from "./tasks/TaskCreate";
+import TaskEdit from "./tasks/TaskEdit";
 
 const App = () => {
 	return(
-		<div className="ui container" style={{width: "75%", padding: "1%"}}>
+		<div className="ui container" style={{width: "70%", padding: "1%"}}>
 			<Router history={history}>
 				<div>
 					<Menu/>
@@ -27,6 +28,7 @@ const App = () => {
 						<Route path="/projects/:projTag/edit" exact component={ProjectEdit}/>
 						<Route path="/projects/:projTag/tasks" exact component={TaskBoard}/>
 						<Route path="/projects/:projTag/tasks/new" exact component={TaskCreate}/>
+						<Route path="/projects/:projTag/tasks/:taskTag/edit" exact component={TaskEdit}/>
 					</Switch>
 				</div>
 			</Router>

@@ -46,17 +46,17 @@ class TaskBoard extends React.Component{
 
 	renderSwimLanes(){
 		return(
-			<div class="ui internally celled grid">
-  				<div class="three column row">
-    				<div class="column">
-    					<h3 class="ui block header"> Todo </h3>
+			<div className="ui internally celled grid">
+  				<div className="three column row">
+    				<div className="column">
+    					<h3 className="ui block header"> Todo </h3>
     					<TaskList tasks={this.props.tasks}/>
     				</div>
-    				<div class="column">
-    					<h3 class="ui block header"> In Progress </h3>
+    				<div className="column">
+    					<h3 className="ui block header"> In Progress </h3>
     				</div>
-    				<div class="column">
-    					<h3 class="ui block header"> Done </h3>
+    				<div className="column">
+    					<h3 className="ui block header"> Done </h3>
     				</div>
     			</div>
   			</div>
