@@ -27,7 +27,6 @@ class ProjectEdit extends React.Component{
 
 		return(
 			<div style={{margin: "5%"}}>
-				<h3 style={{textAlign: "center"}}> Edit a Project </h3>
 				<ProjectForm onSubmit={this.onSubmit} initialValues={
 					{
 						projTitle: this.props.project.projTitle, 

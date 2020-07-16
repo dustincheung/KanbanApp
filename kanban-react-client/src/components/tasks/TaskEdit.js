@@ -21,7 +21,6 @@ class TaskEdit extends React.Component{
 		}
 		return(
 			<div style={{margin: "5%"}}>
-				<h3 style={{textAlign: "center"}}> Task Info </h3>
 				<TaskForm onSubmit={this.onSubmit} initialValues={
 					{
 						taskTitle: this.props.task.taskTitle, 

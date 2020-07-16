@@ -9,7 +9,6 @@ class ProjectCreate extends React.Component{
 	render(){
 		return(
 			<div style={{margin: "5%"}}>
-				<h3 style={{textAlign: "center"}}> Create a Project </h3>
 				<ProjectForm onSubmit={this.onSubmit}/>
 				{this.renderErrorAlert()}
 			</div>

@@ -77,17 +77,14 @@ class ProjectCard extends React.Component{
     const backlogPath = "/projects/" + this.props.project.projTag + "/tasks";
 
 		return(
-			<div className="ui vertical labeled icon buttons" style={{float: "right", width: "80%"}}>
+			<div className="ui vertical basic buttons" style={{float: "right", width: "65%"}}>
   				<Link className="ui button" to={backlogPath}>
-    				<i className="columns icon"></i>
     				Kanban
   				</Link>
   				<Link className="ui button" to={projectEditPath}>
-    				<i className="edit icon"></i>
    					Update
   				</Link>
   				<button className="ui button" onClick={(event) => this.onDeleteClick(event)}>
-    				<i className="trash icon"></i>
     				Delete
   				</button>
 			</div>

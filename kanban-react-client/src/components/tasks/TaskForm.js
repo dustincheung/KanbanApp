@@ -4,29 +4,32 @@ import {Field, reduxForm} from 'redux-form'; //import Field component and reduxF
 class TaskForm extends React.Component {
 	render(){
 		return(
-			<form className="ui form error" onSubmit={this.props.handleSubmit(this.onSubmit)} style={{width: "50%", margin: "auto", paddingTop: "5%"}}>
-				<div className="form-row">
-					<div className="form-group col-md-8">
-						<Field name="taskTitle" label="Task Title: " component={this.renderFieldText}/>
+			<div className="ui raised segment" style={{width: "50%", margin: "auto"}}>
+				<form className="ui form error" onSubmit={this.props.handleSubmit(this.onSubmit)}>
+					<h2 className="ui dividing header">Task Information</h2>
+					<div className="form-row">
+						<div className="form-group col-md-8">
+							<Field name="taskTitle" label="Task Title: " component={this.renderFieldText}/>
+						</div>
+						<div className="form-group col-md-4">
+							<Field name="dueDate" label="Due Date:  " component={this.renderFieldDate}/>
+						</div>
 					</div>
-					<div className="form-group col-md-4">
-						<Field name="dueDate" label="Due Date:  " component={this.renderFieldDate}/>
+					<Field name="taskDescription" label="Description: " component={this.renderTextArea}/>
+					<Field name="acceptCriteria" label="Acceptance Criteria: " component={this.renderTextArea}/>
+					 <div className="form-row">
+    					<div className="col">
+    				  	<Field name="priority" label="Priority:  " component={this.renderPriorityDropDown}/>
+   				 		</div>
+    					<div className="col">
+     				 	<Field name="status" label="Status:  " component={this.renderStatusDropDown}/>
+    					</div>
+  					</div>				
+					<div className="text-center">
+						<button className="ui button primary" style={{marginTop: "4%", width: "100%"}}> Submit </button>
 					</div>
-				</div>
-				<Field name="taskDescription" label="Description: " component={this.renderFieldText}/>
-				<Field name="acceptCriteria" label="Acceptance Criteria: " component={this.renderFieldText}/>
-				 <div className="form-row">
-    				<div className="col">
-    				  <Field name="priority" label="Priority:  " component={this.renderPriorityDropDown}/>
-   				 	</div>
-    				<div className="col">
-     				 <Field name="status" label="Status:  " component={this.renderStatusDropDown}/>
-    				</div>
-  				</div>				
-				<div className="text-center">
-					<button className="ui button primary" style={{marginTop: "4%", width: "100%"}}> Submit </button>
-				</div>
-			</form>
+				</form>
+			</div>
 		);
 	}
 
@@ -34,13 +37,23 @@ class TaskForm extends React.Component {
 		this.props.onSubmit(formValues); //onSubmit that is passed down
 	}
 
-	//functional component that renders text input, and also accepts redux formProps
 	//formProps gives us acess to label, input, meta
-	renderFieldText = (formProps) => {						
+	renderFieldText = (formProps) => {					
 		return(
 			<div className="form-group">					
 				<label>{formProps.label}</label>
 				<input {...formProps.input}/>			
+				{this.renderError(formProps.meta)}
+			</div>
+		); 
+	}
+
+	renderTextArea = (formProps) => {		
+		console.log("textarea");				
+		return(
+			<div className="form-group">					
+				<label>{formProps.label}</label>
+				<textarea {...formProps.input} placeholder="Content" rows="5" cols="40"></textarea>		
 				{this.renderError(formProps.meta)}
 			</div>
 		); 

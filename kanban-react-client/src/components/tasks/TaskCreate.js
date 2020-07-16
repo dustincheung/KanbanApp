@@ -9,7 +9,6 @@ class TaskCreate extends React.Component{
 	render(){
 		return(
 			<div style={{margin: "5%"}}>
-				<h3 style={{textAlign: "center"}}> Create a Task </h3>
 				<TaskForm onSubmit={this.onSubmit}/>
 				{this.renderErrorAlert()}
 			</div>

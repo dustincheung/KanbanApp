@@ -4,28 +4,31 @@ import {Field, reduxForm} from 'redux-form'; //import Field component and reduxF
 class ProjectForm extends React.Component {
 	render(){
 		return(
-			<form className="ui form error" onSubmit={this.props.handleSubmit(this.onSubmit)} style={{width: "50%", margin: "auto", paddingTop: "5%"}}>
-				<div className="form-row">
-					<div className="form-group col-md-8">
-						<Field name="projTitle" label="Title: " component={this.renderFieldText}/>
+			<div className="ui raised segment" style={{width: "50%", margin: "auto"}}>
+				<form className="ui form error" onSubmit={this.props.handleSubmit(this.onSubmit)}>
+				<h2 className="ui dividing header">Project Information</h2>
+					<div className="form-row">
+						<div className="form-group col-md-8">
+							<Field name="projTitle" label="Title: " component={this.renderFieldText}/>
+						</div>
+						<div className="form-group col-md-4">
+							<Field name="projTag" label="Tag (5 Chars): " component={this.renderFieldText}/>
+						</div>
 					</div>
-					<div className="form-group col-md-4">
-						<Field name="projTag" label="Tag (5 digits): " component={this.renderFieldText}/>
+					<Field name="description" label="Description: " component={this.renderTextArea}/>
+				 	<div className="form-row">
+    					<div className="col">
+    				  	<Field name="startDate" label="Start Date:  " component={this.renderFieldDate}/>
+   				 		</div>
+    					<div className="col">
+     				 	<Field name="endDate" label="End Date:  " component={this.renderFieldDate}/>
+    					</div>
+  					</div>				
+					<div className="text-center">
+						<button className="ui button primary" style={{marginTop: "4%", width: "100%"}}> Submit </button>
 					</div>
-				</div>
-				<Field name="description" label="Description: " component={this.renderFieldText}/>
-				 <div className="form-row">
-    				<div className="col">
-    				  <Field name="startDate" label="Start Date:  " component={this.renderFieldDate}/>
-   				 	</div>
-    				<div className="col">
-     				 <Field name="endDate" label="End Date:  " component={this.renderFieldDate}/>
-    				</div>
-  				</div>				
-				<div className="text-center">
-					<button className="ui button primary" style={{marginTop: "4%", width: "100%"}}> Submit </button>
-				</div>
-			</form>
+				</form>
+			</div>
 		);
 	}
 
@@ -33,7 +36,7 @@ class ProjectForm extends React.Component {
 		this.props.onSubmit(formValues); //onSubmit that is passed down
 	}
 
-	//functional component that renders text input, and also accepts redux formProps
+	//renders text input, and also accepts redux formProps
 	//formProps gives us acess to label, input, meta
 	renderFieldText = (formProps) => {						
 		return(
@@ -45,7 +48,18 @@ class ProjectForm extends React.Component {
 		); 
 	}
 
-	//functional component that renders date input, and also accepts redux formProps
+	renderTextArea = (formProps) => {		
+		console.log("textarea");				
+		return(
+			<div className="form-group">					
+				<label>{formProps.label}</label>
+				<textarea {...formProps.input} placeholder="Content" rows="5" cols="40"></textarea>		
+				{this.renderError(formProps.meta)}
+			</div>
+		); 
+	}
+
+	//renders date input, and also accepts redux formProps
 	renderFieldDate = (formProps) => {
 		return(
 			<div className="form-group">

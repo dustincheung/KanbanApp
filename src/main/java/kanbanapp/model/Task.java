@@ -44,6 +44,7 @@ public class Task {
 	
 	private String status;
 	
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date dueDate;
 	
 	// ManyToOne relationship with Backlog

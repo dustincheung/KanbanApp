@@ -40,7 +40,7 @@ class ProjectDashbord extends React.Component{
 
 	renderCreateButton = () => {
 		return(
-			<Link to="/projects/new" className="ui right floated green button" style={{marginTop: "30%"}}>Create Project</Link>
+			<Link to="/projects/new" className="ui right floated green basic button" style={{marginTop: "30%"}}>Create Project</Link>
 		);
 	}
 }
