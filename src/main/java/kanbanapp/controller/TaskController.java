@@ -73,7 +73,7 @@ public class TaskController {
 	
 	// Delete Route
 	@RequestMapping(method = RequestMethod.DELETE, value = "/projects/{projTag}/tasks/{taskTag}/delete")
-	public ResponseEntity<?> deleteTask(@PathVariable String projTag, @PathVariable String taskTag){
+	public ResponseEntity<?> deleteTask(@PathVariable String taskTag){
 		taskService.deleteTaskbyTaskTag(taskTag);
 		
 		return new ResponseEntity<String>("Task with task tag: " + taskTag + " was deleted successfully", HttpStatus.OK);

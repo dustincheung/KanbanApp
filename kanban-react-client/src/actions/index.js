@@ -22,15 +22,6 @@ export const getProjects = () => {
 	}
 }
 
-export const deleteProject = (projTag) => {
-	return async (dispatch) => {
-		if(window.confirm("Deleting project will also delete all data associated with it.  Are you sure you want to delete?")){
-			await axios.delete("/projects/" + projTag + "/delete");
-			dispatch({type: "DELETE_PROJECT", payload: projTag});
-		}
-	}
-}
-
 export const createProject = (formValues) => {
 	return async (dispatch) => {
 		try{
@@ -46,6 +37,15 @@ export const createProject = (formValues) => {
 			history.push("/projects");
 		}catch(err){
 			dispatch({type: "INDEX_ERRORS", payload: err.response.data});
+		}
+	}
+}
+
+export const deleteProject = (projTag) => {
+	return async (dispatch) => {
+		if(window.confirm("Deleting a project will also delete all data associated with it.  Are you sure you want to delete?")){
+			await axios.delete("/projects/" + projTag + "/delete");
+			dispatch({type: "DELETE_PROJECT", payload: projTag});
 		}
 	}
 }
@@ -123,6 +123,15 @@ export const createTask = (formValues, projTag) => {
 			history.push("/projects/" + projTag + "/tasks");
 		}catch(err){
 			dispatch({type: "INDEX_ERRORS", payload: err.response.data});
+		}
+	}
+}
+
+export const deleteTask = (projTag, taskTag) => {
+	return async (dispatch) => {
+		if(window.confirm("Deleting a task will also delete all data associated with it.  Are you sure you want to delete?")){
+			await axios.delete("/projects/" + projTag + "/tasks/" + taskTag + "/delete");
+			dispatch({type: "DELETE_TASK", payload: taskTag});
 		}
 	}
 }

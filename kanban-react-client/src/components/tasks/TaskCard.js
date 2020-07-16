@@ -1,5 +1,8 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+
+import {deleteTask} from "../../actions";
 
 class TaskCard extends React.Component{
 	render(){
@@ -19,13 +22,18 @@ class TaskCard extends React.Component{
     				<Link className="left floated tiny circular ui icon button" to={taskEditPath}>
       					<i className="expand icon"></i>
       				</Link>
-    				<button className="right floated tiny circular ui icon button">
+    				<button className="right floated tiny circular ui icon button" onClick={(event) => {this.onDeleteClick(event)}}>
       					<i className="trash alternate outline icon"></i>
       				</button>
   				</div>
 			</div>				
 		);
 	}
+
+  onDeleteClick = (event) => {
+    event.stopPropagation();
+    this.props.deleteTask(this.props.task.projTag, this.props.task.taskTag);
+  }
 }
 
-export default TaskCard;
+export default connect(null, {deleteTask})(TaskCard);
