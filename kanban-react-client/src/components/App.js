@@ -17,10 +17,10 @@ import TaskEdit from "./tasks/TaskEdit";
 
 const App = () => {
 	return(
-		<div className="ui container" style={{width: "70%", padding: "1%"}}>
+		<div>
 			<Router history={history}>
-				<div>
-					<Menu/>
+				<Menu/>
+				<div className="ui container" style={{width: "70%", padding: "1%"}}>
 					<Switch>
 						<Route path="/" exact component={Landing}/>
 						<Route path="/projects" exact component={ProjectDashboard}/>

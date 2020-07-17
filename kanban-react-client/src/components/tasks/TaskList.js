@@ -11,7 +11,7 @@ class TaskList extends React.Component{
 		return(
 			<div>
 				{tasks.map((task) => 
-					<TaskCard task={task} key={task.taskTag}/>
+					<TaskCard task={task} status={this.props.status} key={task.taskTag}/>
 				)}
 			</div>
 		);

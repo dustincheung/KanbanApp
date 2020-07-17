@@ -90,9 +90,7 @@ export const updateProject = (projTag, formValues) => {
 }
 
 export const clearProject = () => {
-	return async (dispatch) => {
-		dispatch({type: "CLEAR_PROJECT", payload: null});
-	}
+	return({type: "CLEAR_PROJECT", payload: null});
 }
 
 //************************************************
@@ -170,9 +168,13 @@ export const updateTask = (projTag, taskTag, formValues) => {
 			const response = await axios.put("/projects/" + projTag + "/tasks/" + taskTag, task);
 			history.push("/projects/" + projTag + "/tasks");
 
-			dispatch({type: "CLEAR_PROJECT", payload: null});
+			dispatch({type: "CLEAR_TASK", payload: null});
 		}catch(err){
 			dispatch({type: "INDEX_ERRORS", payload: err.response.data});
 		}
 	}
+}
+
+export const clearTask = () => {
+	return({type: "CLEAR_TASK", payload: null});
 }

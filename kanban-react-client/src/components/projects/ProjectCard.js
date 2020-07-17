@@ -65,8 +65,8 @@ class ProjectCard extends React.Component{
 	renderProjectInfo = () => {
 		return(
 			<div style={{float: "left"}}>
-  				<h2 className="card-title">{this.props.project.projTitle}</h2>
-    			<h5 className="card-text">{this.props.project.description}</h5>
+  				<h2 style={{fontFamily: "Roboto", fontWeight: "300"}}>{this.props.project.projTitle}</h2>
+    			<h5 style={{fontFamily: "Roboto", fontWeight: "300"}}>{this.props.project.description}</h5>
   			</div>	
 		);
 	}

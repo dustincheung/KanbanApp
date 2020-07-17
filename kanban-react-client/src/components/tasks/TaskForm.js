@@ -1,8 +1,11 @@
 import React from "react";
-import {Field, reduxForm} from 'redux-form'; //import Field component and reduxForm function
+import {Field, reduxForm} from "redux-form"; //import Field component and reduxForm function
+import {Link} from "react-router-dom";
 
 class TaskForm extends React.Component {
 	render(){
+		const backPath = "/projects/" + this.props.projTag + "/tasks";
+
 		return(
 			<div className="ui raised segment" style={{width: "50%", margin: "auto"}}>
 				<form className="ui form error" onSubmit={this.props.handleSubmit(this.onSubmit)}>
@@ -26,7 +29,14 @@ class TaskForm extends React.Component {
     					</div>
   					</div>				
 					<div className="text-center">
-						<button className="ui button primary" style={{marginTop: "4%", width: "100%"}}> Submit </button>
+						<div className="form-row">
+							<div className="col">
+								<Link className="ui primary basic button" to={backPath} style={{width: "100%", float: "left"}}>Back to Tasks</Link>
+							</div>
+							<div className="col">
+								<button className="ui green basic button" style={{width: "100%", float: "right"}}> Submit </button>
+							</div>
+						</div>
 					</div>
 				</form>
 			</div>

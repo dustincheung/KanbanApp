@@ -6,7 +6,7 @@
  	switch(action.type){
  		case "GET_TASK":
  			return action.payload;
- 		case "CLEAR_PROJECT":
+ 		case "CLEAR_TASK":
  			return action.payload;
  		default:
  			return state;

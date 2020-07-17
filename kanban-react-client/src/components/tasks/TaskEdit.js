@@ -14,14 +14,17 @@ class TaskEdit extends React.Component{
 	}
 
 	render(){
+		const projTag = this.props.match.params.projTag;
+
 		if(!this.props.task){
 			return(
 				<div> LOADING </div>
 			)
 		}
+
 		return(
 			<div style={{margin: "5%"}}>
-				<TaskForm onSubmit={this.onSubmit} initialValues={
+				<TaskForm onSubmit={this.onSubmit} projTag={projTag} initialValues={
 					{
 						taskTitle: this.props.task.taskTitle, 
 						dueDate: this.props.task.dueDate, 

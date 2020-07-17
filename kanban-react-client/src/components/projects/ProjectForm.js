@@ -25,7 +25,7 @@ class ProjectForm extends React.Component {
     					</div>
   					</div>				
 					<div className="text-center">
-						<button className="ui button primary" style={{marginTop: "4%", width: "100%"}}> Submit </button>
+						<button className="ui green basic button" style={{marginTop: "4%", width: "100%"}}> Submit </button>
 					</div>
 				</form>
 			</div>
