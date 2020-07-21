@@ -13,6 +13,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import static kanbanapp.security.SecurityConstants.REGISTER_URL;
+import static kanbanapp.security.SecurityConstants.H2_CONSOLE_URL;
+
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
@@ -52,7 +56,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     "/**/*.css",
                     "/**/*.js"
             ).permitAll()
-			.antMatchers("/users/**").permitAll()
+			.antMatchers(H2_CONSOLE_URL).permitAll()
+			.antMatchers(REGISTER_URL).permitAll()
             .anyRequest().authenticated();
 	}
 }
