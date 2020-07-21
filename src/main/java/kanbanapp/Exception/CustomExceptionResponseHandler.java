@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestController
 public class CustomExceptionResponseHandler extends ResponseEntityExceptionHandler{
 	
-	// ProjTag Exception
+	//ProjTag Exception
 	@ExceptionHandler
 	public final ResponseEntity<Object> handleProjectTagException(ProjectTagException exception, WebRequest request){
 		
@@ -28,7 +28,7 @@ public class CustomExceptionResponseHandler extends ResponseEntityExceptionHandl
 		return new ResponseEntity<Object>(exceptionResponse, HttpStatus.BAD_REQUEST);
 	}
 	
-	// BacklogNotFound Exception
+	//BacklogNotFound Exception
 	@ExceptionHandler
 	public final ResponseEntity<Object> handleBacklogNotFoundException(BacklogNotFoundException exception, WebRequest request){
 		
@@ -37,4 +37,15 @@ public class CustomExceptionResponseHandler extends ResponseEntityExceptionHandl
 		
 		return new ResponseEntity<Object>(exceptionResponse, HttpStatus.BAD_REQUEST);
 	}
+	
+	//User  Exception
+	@ExceptionHandler
+	public final ResponseEntity<Object> handleUserException(UserException exception, WebRequest request){
+			
+		//creates a new custom response obj that holds the message from custom exception
+		UserExceptionResponse exceptionResponse = new UserExceptionResponse(exception.getMessage());
+			
+		return new ResponseEntity<Object>(exceptionResponse, HttpStatus.BAD_REQUEST);
+	}
+	
 }

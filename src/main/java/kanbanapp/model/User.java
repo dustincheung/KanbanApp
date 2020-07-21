@@ -48,7 +48,7 @@ public class User implements UserDetails {
 		
 		public User() {
 			
-		}
+		} 
 		
 		@PrePersist
 		// stores the date of creation when a User object is created
