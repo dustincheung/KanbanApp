@@ -23,11 +23,8 @@ public class UserService {
 			String encryptPassword = bCryptPasswordEncoder.encode(newUser.getPassword());
 			newUser.setPassword(encryptPassword);
 			
-			//ensure username is unique
-			
-			//ensure password matches confirmPassword
-			
-			//only persist password, confirmPassword should not be saved in db 
+			//after confirm password passes controller meaning it matches, set it to blank so that it does not save in db
+			newUser.setConfirmPassword("");
 			
 			return userRepository.save(newUser);
 		}catch(Exception e) {

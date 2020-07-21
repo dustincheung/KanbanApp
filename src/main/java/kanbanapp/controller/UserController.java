@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import kanbanapp.model.User;
 import kanbanapp.service.ErrorMappingService;
 import kanbanapp.service.UserService;
+import kanbanapp.validator.UserValidator;
 
 @RestController
 public class UserController {
@@ -24,10 +25,16 @@ public class UserController {
 	@Autowired
 	private ErrorMappingService errorMappingService;
 	
+	@Autowired
+	private UserValidator userValidator;
+	
 	@RequestMapping(method = RequestMethod.POST, value = "/users/register")
 	public ResponseEntity<?> createUser(@Valid @RequestBody User user, BindingResult result){
-		//ensure passwords match
 		
+		//validate password (length and matching passwords)
+		userValidator.validate(user, result);
+		
+		//handles col conditions 
 		ResponseEntity<?> mapErrors = errorMappingService.mapErrors(result);
 		
 		if(mapErrors != null) {
