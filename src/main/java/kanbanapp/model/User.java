@@ -1,5 +1,6 @@
 package kanbanapp.model;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,15 +14,20 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-public class User {
+public class User implements UserDetails {
 
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		private Long id;
 		
 		@Column(unique = true)
-		@Email(message="Username should be an email")
+		@Email(message="username should be an email")
 		@NotBlank(message="Username is required")
 		private String username;
 		
@@ -110,5 +116,44 @@ public class User {
 
 		public void setUpdatedDate(Date updatedDate) {
 			this.updatedDate = updatedDate;
+		}
+		
+		/*
+		 *  Methods from UserDetails Interface
+		 */
+		
+		@JsonIgnore
+		@Override
+		public Collection<? extends GrantedAuthority> getAuthorities() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+		@JsonIgnore
+		@Override
+		public boolean isAccountNonExpired() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+		
+		@JsonIgnore
+		@Override
+		public boolean isAccountNonLocked() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+		
+		@JsonIgnore
+		@Override
+		public boolean isCredentialsNonExpired() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+		
+		@JsonIgnore
+		@Override
+		public boolean isEnabled() {
+			// TODO Auto-generated method stub
+			return false;
 		}
 }
