@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 import kanbanapp.Exception.ProjectTagException;
 import kanbanapp.model.Backlog;
 import kanbanapp.model.Project;
+import kanbanapp.model.User;
 import kanbanapp.repository.BacklogRepository;
 import kanbanapp.repository.ProjectRepository;
+import kanbanapp.repository.UserRepository;
 
 @Service
 public class ProjectService {
@@ -18,6 +20,9 @@ public class ProjectService {
 	@Autowired
 	private BacklogRepository backlogRepository;
 	
+	@Autowired
+	private UserRepository userRepository;
+	
 	// gets all projects
 	public Iterable<Project> indexProjects(){
 		
@@ -25,8 +30,14 @@ public class ProjectService {
 	}
 		
 	// creates a new project 
-	public Project createProject(Project project) {
+	public Project createProject(Project project, String username) {
 		try {
+			//find user set user field and projOwner field in project obj
+			User user = userRepository.findByUsername(username);
+			project.setUser(user);
+			project.setProjOwner(user.getUsername());
+			
+			//formatting proj tag
 			String projTag = project.getProjTag().toUpperCase();
 			project.setProjTag(projTag);
 			
@@ -58,8 +69,13 @@ public class ProjectService {
 	
 	// updates project: don't need to pass in projTag b/c entity instance already has it, so it will save
 	// over record with matching id as the project passed
-	public Project updateProject(Project updatedProject) {
+	public Project updateProject(Project updatedProject, String username) {
 		try {
+			//find user set user field and projOwner field in project obj
+			User user = userRepository.findByUsername(username);
+			updatedProject.setUser(user);
+			updatedProject.setProjOwner(user.getUsername());
+			
 			//associated backlog will not be passed in req body
 			//project's backlog is set with backlog that is found 
 			updatedProject.setBacklog(backlogRepository.findByProjTag(updatedProject.getProjTag()));

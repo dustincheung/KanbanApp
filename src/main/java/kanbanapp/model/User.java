@@ -1,13 +1,18 @@
 package kanbanapp.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Transient;
@@ -42,6 +47,8 @@ public class User implements UserDetails {
 		private String confirmPassword;
 		
 		//OneToMany relationship with Project
+		@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, mappedBy = "user", orphanRemoval = true)
+		private List<Project> projects = new ArrayList<>();
 		
 		private Date createdDate;
 		private Date updatedDate;
@@ -118,10 +125,18 @@ public class User implements UserDetails {
 			this.updatedDate = updatedDate;
 		}
 		
+		public List<Project> getProjects() {
+			return projects;
+		}
+
+		public void setProjects(List<Project> projects) {
+			this.projects = projects;
+		}
+		
 		/*
 		 *  Methods from UserDetails Interface
 		 */
-		
+
 		@JsonIgnore
 		@Override
 		public Collection<? extends GrantedAuthority> getAuthorities() {

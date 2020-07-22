@@ -1,5 +1,7 @@
 package kanbanapp.controller;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +36,7 @@ public class ProjectController {
 	
 	// Create Route 
 	@RequestMapping(method = RequestMethod.POST, value = "/projects")
-	public ResponseEntity<?> createProject(@Valid @RequestBody Project project, BindingResult result){
+	public ResponseEntity<?> createProject(@Valid @RequestBody Project project, Principal principal, BindingResult result){
 		
 		ResponseEntity<?> mapErrors = errorMappingService.mapErrors(result);
 		
@@ -42,7 +44,7 @@ public class ProjectController {
 			return mapErrors;
 		}
 		
-		projectService.createProject(project);
+		projectService.createProject(project, principal.getName());
 		return new ResponseEntity<Project>(project, HttpStatus.CREATED);
 	}
 	
@@ -56,9 +58,9 @@ public class ProjectController {
 	
 	// Update Route
 	@RequestMapping(method = RequestMethod.PUT, value = "/projects/{projTag}")
-	public ResponseEntity<?> updateProject(@RequestBody Project project, @PathVariable String projTag){
+	public ResponseEntity<?> updateProject(@RequestBody Project project, @PathVariable String projTag, Principal principal){
 		//not necessary to pass in projTag b/c our project in the body will contain primary key id already
-		projectService.updateProject(project);
+		projectService.updateProject(project, principal.getName());
 		return new ResponseEntity<Project>(project, HttpStatus.OK);
 	}
 	
