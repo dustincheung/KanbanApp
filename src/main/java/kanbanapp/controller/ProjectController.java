@@ -30,8 +30,8 @@ public class ProjectController {
 	
 	// Index Route
 	@RequestMapping("/projects")
-	public Iterable<Project> indexProjects(){
-		return projectService.indexProjects();
+	public Iterable<Project> indexProjects(Principal principal){
+		return projectService.indexProjects(principal.getName());
 	}
 	
 	// Create Route 
@@ -50,8 +50,8 @@ public class ProjectController {
 	
 	// Show Route
 	@RequestMapping("/projects/{projTag}")
-	public ResponseEntity<?> showProject(@PathVariable String projTag){
-		Project projectToShow = projectService.showProject(projTag);
+	public ResponseEntity<?> showProject(@PathVariable String projTag, Principal principal){
+		Project projectToShow = projectService.showProject(projTag, principal.getName());
 		
 		return new ResponseEntity<Project>(projectToShow, HttpStatus.OK);
 	}
@@ -66,8 +66,8 @@ public class ProjectController {
 	
 	// Delete Route
 	@RequestMapping(method = RequestMethod.DELETE, value = "/projects/{projTag}/delete")
-	public ResponseEntity<?> deleteProject(@PathVariable String projTag){
-		projectService.deleteProjectByProjTag(projTag);
+	public ResponseEntity<?> deleteProject(@PathVariable String projTag, Principal principal){
+		projectService.deleteProjectByProjTag(projTag, principal.getName());
 		
 		return new ResponseEntity<String>("Project with Tag: " + projTag + " was deleted successfully", HttpStatus.OK);
 	}

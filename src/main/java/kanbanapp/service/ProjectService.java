@@ -24,9 +24,9 @@ public class ProjectService {
 	private UserRepository userRepository;
 	
 	// gets all projects
-	public Iterable<Project> indexProjects(){
+	public Iterable<Project> indexProjects(String username){
 		
-		return projectRepository.findAll();
+		return projectRepository.findAllByProjOwner(username);
 	}
 		
 	// creates a new project 
@@ -56,12 +56,16 @@ public class ProjectService {
 	}
 	
 	// gets project that based on projTag
-	public Project showProject(String projTag) {
+	public Project showProject(String projTag, String username) {
 		
 		Project projectToShow = projectRepository.findByProjTag(projTag);
 		
 		if(projectToShow == null) {
 			throw new ProjectTagException("Project Tag " + projTag + " does not exist");
+		}
+		
+		if(!projectToShow.getProjOwner().equals(username)) {
+			throw new ProjectTagException("This project does not belong to the current user");
 		}
 		
 		return projectRepository.findByProjTag(projTag);
@@ -86,11 +90,15 @@ public class ProjectService {
 	}
 	
 	// deletes a project based on projTag
-	public void deleteProjectByProjTag(String projTag) {
+	public void deleteProjectByProjTag(String projTag, String username) {
 		Project projectToDelete = projectRepository.findByProjTag(projTag.toUpperCase());
 		
 		if(projectToDelete == null) {
 			throw new ProjectTagException("Project Tag " + projTag + " does not exist");
+		}
+		
+		if(!projectToDelete.getProjOwner().equals(username)) {
+			throw new ProjectTagException("This project does not belong to the current user");
 		}
 		
 		projectRepository.delete(projectToDelete);
