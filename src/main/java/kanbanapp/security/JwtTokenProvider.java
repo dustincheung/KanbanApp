@@ -1,3 +1,8 @@
+/*
+ *  This class contains JWT utility functions. Methods handle generating token, validating token,
+ *  and getting user info from token.
+ */
+
 package kanbanapp.security;
 
 import java.util.Date;
@@ -7,8 +12,13 @@ import java.util.Map;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
 import kanbanapp.model.User;
 import static kanbanapp.security.SecurityConstants.EXPIRATION_TIME;
 import static kanbanapp.security.SecurityConstants.JWT_SECRET;
@@ -42,6 +52,31 @@ public class JwtTokenProvider {
 	}
 	
 	//validate token
+	public boolean validateToken(String token) {
+		try {
+			Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token);
+			return true;
+		}catch (MalformedJwtException e){
+            System.out.println("JWT Token is invalid");
+		}catch (SignatureException e){
+            System.out.println("JWT Signature is invalid");
+        }catch (ExpiredJwtException e){
+            System.out.println("JWT token is expired");
+        }catch (UnsupportedJwtException e){
+            System.out.println("Unsupported JWT token");
+        }catch (IllegalArgumentException e){
+            System.out.println("JWT claims string is empty");
+        }
+        return false;
+	}
 	
-	//obtain user id from token
+	//obtain user id from token, parsing out user information from token
+	public Long getUserIdFromJWT(String token){
+        Claims claims = Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token).getBody();
+        
+        //parse id
+        String id = (String)claims.get("id");
+
+        return Long.parseLong(id);
+    }
 }

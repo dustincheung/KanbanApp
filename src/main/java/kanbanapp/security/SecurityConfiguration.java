@@ -1,6 +1,8 @@
 /*
- *  This class allows us to configure/customize Spring Security for our app.
+ *  This class allows us to configure/customize Spring Security for our app. This class specifies the type of authentication
+ *  that will be done and controls access to certain requests in our application.
  */
+
 package kanbanapp.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import kanbanapp.service.CustomUserDetailsService;
 
@@ -32,7 +35,7 @@ import static kanbanapp.security.SecurityConstants.H2_CONSOLE_URL;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
-	private JWTAuthenticationEntryPoint badLoginHandler;
+	private JwtAuthenticationEntryPoint badLoginHandler;
 	
 	@Autowired
 	CustomUserDetailsService customUserDetailsService;
@@ -42,8 +45,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
+	@Bean
+	public JwtAuthenticationFilter jwtAuthenticaitonFilter() {
+		return new JwtAuthenticationFilter();
+	}
 		
-	//bean for our  Manager instance
+	//bean for our Manager instance
 	@Override
 	@Bean(BeanIds.AUTHENTICATION_MANAGER)
 	protected AuthenticationManager authenticationManager() throws Exception {
@@ -82,5 +90,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers(H2_CONSOLE_URL).permitAll()
 			.antMatchers(REGISTER_URL).permitAll()
             .anyRequest().authenticated();
+		
+		http.addFilterBefore(jwtAuthenticaitonFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 }

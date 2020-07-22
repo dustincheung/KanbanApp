@@ -20,7 +20,7 @@ import com.google.gson.Gson;
 import kanbanapp.Exception.BadLoginResponse;
 
 @Component
-public class JWTAuthenticationEntryPoint implements AuthenticationEntryPoint{
+public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint{
 	
 	//determines what is returned to if bad authentication
 	@Override
