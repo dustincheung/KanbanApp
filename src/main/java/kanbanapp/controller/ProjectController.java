@@ -33,7 +33,7 @@ public class ProjectController {
 	public Iterable<Project> indexProjects(Principal principal){
 		return projectService.indexProjects(principal.getName());
 	}
-	
+	  
 	// Create Route 
 	@RequestMapping(method = RequestMethod.POST, value = "/projects")
 	public ResponseEntity<?> createProject(@Valid @RequestBody Project project, Principal principal, BindingResult result){

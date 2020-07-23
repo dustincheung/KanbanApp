@@ -74,9 +74,16 @@ public class ProjectService {
 	// updates project: don't need to pass in projTag b/c entity instance already has it, so it will save
 	// over record with matching id as the project passed
 	public Project updateProject(Project updatedProject, String username) {
+		
+		//do not allow update if principal is not the projOwner of this project
+		if(!updatedProject.getProjOwner().equals(username)){
+			throw new ProjectTagException("This project does not belong to the current user");
+		}
+		
 		try {
 			//find user set user field and projOwner field in project obj
 			User user = userRepository.findByUsername(username);
+			
 			updatedProject.setUser(user);
 			updatedProject.setProjOwner(user.getUsername());
 			
