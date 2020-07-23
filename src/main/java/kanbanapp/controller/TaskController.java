@@ -1,5 +1,7 @@
 package kanbanapp.controller;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +31,13 @@ public class TaskController {
 	
 	// Index Route
 	@RequestMapping("/projects/{projTag}/tasks")
-	public Iterable<Task> indexTasks (@PathVariable String projTag){
-		return taskService.indexTasks(projTag);
+	public Iterable<Task> indexTasks (@PathVariable String projTag, Principal principal){
+		return taskService.indexTasks(projTag, principal.getName());
 	}
 	
 	// Create Route
 	@RequestMapping(method = RequestMethod.POST, value = "/projects/{projTag}/tasks")
-	public ResponseEntity<?> createTask(@Valid @RequestBody Task task, @PathVariable String projTag, BindingResult result){
+	public ResponseEntity<?> createTask(@Valid @RequestBody Task task, @PathVariable String projTag, Principal principal, BindingResult result){
 		
 		ResponseEntity<?> mapErrors = errorMappingService.mapErrors(result);
 		
@@ -43,15 +45,15 @@ public class TaskController {
 			return mapErrors;
 		}
 		
-		Task newTask = taskService.createTask(task, projTag);
+		Task newTask = taskService.createTask(task, projTag, principal.getName());
 		
 		return new ResponseEntity<Task>(newTask, HttpStatus.CREATED);
 	}
 	
 	// Show Route
 	@RequestMapping("/projects/{projTag}/tasks/{taskTag}")
-	public ResponseEntity<?> showTask(@PathVariable String projTag, @PathVariable String taskTag){
-		Task task = taskService.showTask(projTag, taskTag);
+	public ResponseEntity<?> showTask(@PathVariable String projTag, @PathVariable String taskTag, Principal principal){
+		Task task = taskService.showTask(projTag, taskTag, principal.getName());
 		
 		return new ResponseEntity<Task>(task, HttpStatus.OK);
 	}

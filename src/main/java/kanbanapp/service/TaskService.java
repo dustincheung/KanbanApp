@@ -19,19 +19,31 @@ public class TaskService {
 	private TaskRepository taskRepository;
 	
 	// indexes all tasks associated to a Backlog projTag
-	public Iterable<Task> indexTasks(String projTag){
+	public Iterable<Task> indexTasks(String projTag, String username){
+		
+		//check if backlog (contains associated tasks) belongs to the current user, if not do not index tasks
+		Backlog backlog = backlogRepository.findByProjTag(projTag);
+		
+		if(!backlog.getProject().getProjOwner().equals(username)){
+			throw new BacklogNotFoundException("Current user can only view their own project's tasks");
+		}
 		
 		return taskRepository.findByProjTagOrderByPriority(projTag);
 	}
 	
 	// creates a new task, takes in new task obj and associated Backlog projTag
-	public Task createTask(Task task, String projTag) {
+	public Task createTask(Task task, String projTag, String username) {
 		
 		try {
 			// find backlog record that you want to add tasks to, and set it to the new created task 
 			Backlog backlog = backlogRepository.findByProjTag(projTag);
-			task.setBacklog(backlog);
 			
+			//if the projOwner of the project assoc. w/ this backlog is not the curr user, do not allow task to be added
+			if(!backlog.getProject().getProjOwner().equals(username)){
+				throw new BacklogNotFoundException("");
+			}
+			
+			task.setBacklog(backlog);
 			Integer taskSeqIncrementor = backlog.getTaskSeqIncrementor();
 			
 			// taskTag is in format PROJ-1
@@ -58,13 +70,18 @@ public class TaskService {
 	
 	// shows a unique task by first finding task by unique taskTag
 	// ensures backlog exists, task exists, and backlog from path contains task
-	public Task showTask(String projTag, String taskTag) {
+	public Task showTask(String projTag, String taskTag, String username) {
 		
 		// checking backlog
 		Backlog backlog = backlogRepository.findByProjTag(projTag);
 		
 		if(backlog == null) {
 			throw new BacklogNotFoundException("Backlog with projTag " + projTag + " does not exist");
+		}
+		
+		//if the projOwner of the project assoc. w/ this backlog is not the curr user, do not allow show tasks
+		if(!backlog.getProject().getProjOwner().equals(username)){
+			throw new BacklogNotFoundException("Current user can only view their own project's tasks");
 		}
 		
 		// checking task
