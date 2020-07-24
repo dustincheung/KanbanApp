@@ -24,7 +24,7 @@ public class TaskService {
 		//check if backlog (contains associated tasks) belongs to the current user, if not do not index tasks
 		Backlog backlog = backlogRepository.findByProjTag(projTag);
 		
-		if(!backlog.getProject().getProjOwner().equals(username)){
+		if(backlog == null || !backlog.getProject().getProjOwner().equals(username)){
 			throw new BacklogNotFoundException("Current user can only view their own project's tasks");
 		}
 		
@@ -39,7 +39,7 @@ public class TaskService {
 			Backlog backlog = backlogRepository.findByProjTag(projTag);
 			
 			//if the projOwner of the project assoc. w/ this backlog is not the curr user, do not allow task to be added
-			if(!backlog.getProject().getProjOwner().equals(username)){
+			if(backlog == null || !backlog.getProject().getProjOwner().equals(username)){
 				throw new BacklogNotFoundException("");
 			}
 			
@@ -75,12 +75,8 @@ public class TaskService {
 		// checking backlog
 		Backlog backlog = backlogRepository.findByProjTag(projTag);
 		
-		if(backlog == null) {
-			throw new BacklogNotFoundException("Backlog with projTag " + projTag + " does not exist");
-		}
-		
 		//if the projOwner of the project assoc. w/ this backlog is not the curr user, do not allow show tasks
-		if(!backlog.getProject().getProjOwner().equals(username)){
+		if(backlog == null || !backlog.getProject().getProjOwner().equals(username)){
 			throw new BacklogNotFoundException("Current user can only view their own project's tasks");
 		}
 		
@@ -100,7 +96,15 @@ public class TaskService {
 	}
 	
 	// updates a task and takes in new updated task
-	public Task updateTask(Task updatedTask) {
+	public Task updateTask(Task updatedTask, String username) {
+		
+		//check if backlog (contains associated tasks) belongs to the current user, if not do not index tasks
+		Backlog backlog = backlogRepository.findByProjTag(updatedTask.getProjTag());
+				
+		if(backlog == null || !backlog.getProject().getProjOwner().equals(username)){
+			throw new BacklogNotFoundException("Current user can only update their own project's tasks");
+		}
+		
 		try {
 			return taskRepository.save(updatedTask);
 		}catch(Exception e) {
@@ -109,7 +113,15 @@ public class TaskService {
 	}
 	
 	// deletes a task with 
-	public void deleteTaskbyTaskTag(String taskTag) {
+	public void deleteTaskbyTaskTag(String projTag, String taskTag, String username) {
+		
+		//check if backlog (contains associated tasks) belongs to the current user, if not do not allow delete
+		Backlog backlog = backlogRepository.findByProjTag(projTag);
+						
+		if(backlog == null || !backlog.getProject().getProjOwner().equals(username)){
+			throw new BacklogNotFoundException("Current user can only delete their own project's tasks");
+		}
+		
 		Task taskToDelete = taskRepository.findByTaskTag(taskTag);
 		
 		if(taskToDelete == null) {
