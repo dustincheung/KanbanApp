@@ -24,8 +24,8 @@ const renderButtons = () => {
 	return(
 		<div className="sixteen wide column" style={{backgroundColor: "#92AFC0", textAlign: "center", padding: ".6%"}}>
   			<div style={{margin: "auto"}}>
-  				<Link to="" className="ui big green button" style={{marginRight: "1%"}}> Sign Up </Link>
-  				<Link to="" className="ui big blue button"> Log In </Link>
+  				<Link to="/users/register" className="ui big green button" style={{marginRight: "1%"}}> Sign Up </Link>
+  				<Link to="/users/login" className="ui big blue button"> Log In </Link>
   			</div>
   		</div>
 	);

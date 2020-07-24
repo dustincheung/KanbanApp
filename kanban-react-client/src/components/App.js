@@ -8,6 +8,8 @@ import {Router, Route, Switch} from "react-router-dom";
 import history from "../history";
 import Menu from "./layout/Menu";
 import Landing from "./layout/Landing";
+import RegisterForm from "./users/RegisterForm";
+import LoginForm from "./users/LoginForm";
 import ProjectDashboard from "./projects/ProjectDashboard";
 import ProjectCreate from "./projects/ProjectCreate";
 import ProjectEdit from "./projects/ProjectEdit";
@@ -22,7 +24,9 @@ const App = () => {
 				<Menu/>
 					<Switch>
 						<Route path="/" exact component={Landing}/> //public 
-						<div className="ui container" style={{width: "70%", padding: "1%"}}>	
+						<div className="ui container" style={{width: "70%", padding: "1%"}}>
+							<Route path="/users/register" exact component={RegisterForm}/>
+							<Route path="/users/login" exact component={LoginForm}/>
 							<Route path="/projects" exact component={ProjectDashboard}/>
 							<Route path="/projects/new" exact component={ProjectCreate}/>
 							<Route path="/projects/:projTag/edit" exact component={ProjectEdit}/>

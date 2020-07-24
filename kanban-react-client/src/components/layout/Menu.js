@@ -19,12 +19,12 @@ class Menu extends React.Component{
   					Dashboard
   				</Link>
   				<div className="right menu">
-  					<a className="item">
+  					<Link to="/users/register" className="item">
   						Sign Up
-  					</a>
-  					<a className="item">
+  					</Link>
+  					<Link to="/users/login" className="item">
   						Log In
-  					</a>
+  					</Link>
   				</div>
 			</div>												
 		);
