@@ -40,7 +40,7 @@ class TaskBoard extends React.Component{
 		const taskCreatePath = "/projects/" + this.props.match.params.projTag + "/tasks/new";
 
 		return(
-			<Link to={taskCreatePath} className="ui right floated green basic button" style={{marginTop: "30%"}}>Create Task</Link>
+			<Link to={taskCreatePath} className="ui right floated green button" style={{marginTop: "30%"}}>Create Task</Link>
 		);
 	}
 

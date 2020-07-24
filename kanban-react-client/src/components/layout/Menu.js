@@ -11,7 +11,7 @@ import {clearProject} from "../../actions";
 class Menu extends React.Component{
 	render(){
 		return(
-			<div className="ui menu">
+			<div className="ui menu" style={{marginBottom: ".6%"}}>
   				<Link to="/" className="item">
     				KanbanTool
   				</Link>

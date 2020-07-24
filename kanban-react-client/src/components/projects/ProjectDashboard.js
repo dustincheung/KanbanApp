@@ -31,7 +31,7 @@ class ProjectDashbord extends React.Component{
   						{this.renderCreateButton()}
   					</div>
 				</div>
-				<div class="ui divider"></div>
+				<div className="ui divider"></div>
 				<ProjectsList projects={this.props.projects}/>
 			</div>
 		);
@@ -39,7 +39,7 @@ class ProjectDashbord extends React.Component{
 
 	renderCreateButton = () => {
 		return(
-			<Link to="/projects/new" className="ui right floated green basic button" style={{marginTop: "30%"}}>Create Project</Link>
+			<Link to="/projects/new" className="ui right floated green button" style={{marginTop: "30%"}}>Create Project</Link>
 		);
 	}
 }

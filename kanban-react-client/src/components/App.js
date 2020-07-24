@@ -20,17 +20,17 @@ const App = () => {
 		<div>
 			<Router history={history}>
 				<Menu/>
-				<div className="ui container" style={{width: "70%", padding: "1%"}}>
 					<Switch>
-						<Route path="/" exact component={Landing}/>
-						<Route path="/projects" exact component={ProjectDashboard}/>
-						<Route path="/projects/new" exact component={ProjectCreate}/>
-						<Route path="/projects/:projTag/edit" exact component={ProjectEdit}/>
-						<Route path="/projects/:projTag/tasks" exact component={TaskBoard}/>
-						<Route path="/projects/:projTag/tasks/new" exact component={TaskCreate}/>
-						<Route path="/projects/:projTag/tasks/:taskTag/edit" exact component={TaskEdit}/>
+						<Route path="/" exact component={Landing}/> //public 
+						<div className="ui container" style={{width: "70%", padding: "1%"}}>	
+							<Route path="/projects" exact component={ProjectDashboard}/>
+							<Route path="/projects/new" exact component={ProjectCreate}/>
+							<Route path="/projects/:projTag/edit" exact component={ProjectEdit}/>
+							<Route path="/projects/:projTag/tasks" exact component={TaskBoard}/>
+							<Route path="/projects/:projTag/tasks/new" exact component={TaskCreate}/>
+							<Route path="/projects/:projTag/tasks/:taskTag/edit" exact component={TaskEdit}/>
+						</div>
 					</Switch>
-				</div>
 			</Router>
 		</div>
 	);
