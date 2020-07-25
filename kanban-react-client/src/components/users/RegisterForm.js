@@ -9,35 +9,35 @@ class RegisterForm extends React.Component {
 	render(){
 		return(
 			<div>
-			<div className="ui raised segment" style={{width: "40%", margin: "auto"}}>
-				<form className="ui form error" onSubmit={this.props.handleSubmit(this.onSubmit)}>
-				<h2 className="ui dividing header">Sign Up!</h2>
-					<div className="form-row">
-						<div className="col">
-							<Field name="name" label="Name: " component={this.renderFieldText}/>
+				<div className="ui raised segment" style={{width: "40%", margin: "auto"}}>
+					<form className="ui form error" onSubmit={this.props.handleSubmit(this.onSubmit)}>
+					<h2 className="ui dividing header">Sign Up!</h2>
+						<div className="form-row">
+							<div className="col">
+								<Field name="name" label="Name: " component={this.renderFieldText}/>
+							</div>
 						</div>
-					</div>
-				 	<div className="form-row">
-				 		<div className="col">
-				 			<Field name="username" label="Email: " component={this.renderFieldText}/>
-				 		</div>
-  					</div>
-  					<div className="form-row">
-  						<div className="col">
-  							<Field name="password" label="Password: " component={this.renderFieldText}/>
+				 		<div className="form-row">
+				 			<div className="col">
+				 				<Field name="username" label="Email: " component={this.renderFieldText}/>
+				 			</div>
   						</div>
-  					</div>		
-  					<div className="form-row">
-  						<div className="col">
-  							<Field name="confirmPassword" label="Confirm Password: " component={this.renderFieldText}/>
-  						</div>
-  					</div>						
-					<div className="text-center">
-						<button className="ui green basic button" style={{marginTop: "4%", width: "100%"}}> Submit </button>
-					</div>
-				</form>
-			</div>
-			{this.renderErrorAlert()}
+  						<div className="form-row">
+  							<div className="col">
+  								<Field name="password" label="Password: " component={this.renderPasswordText}/>
+  							</div>
+  						</div>		
+  						<div className="form-row">
+  							<div className="col">
+  								<Field name="confirmPassword" label="Confirm Password: " component={this.renderPasswordText}/>
+  							</div>
+  						</div>						
+						<div className="text-center">
+							<button className="ui green basic button" style={{marginTop: "4%", width: "100%"}}> Submit </button>
+						</div>
+					</form>
+				</div>	
+				{this.renderErrorAlert()}
 			</div>
 		);
 	}
@@ -58,6 +58,17 @@ class RegisterForm extends React.Component {
 		); 
 	}
 
+	renderPasswordText = (formProps) => {						
+		return(
+			<div className="form-group">					
+				<label>{formProps.label}</label>
+				<input type="password" {...formProps.input}/>			
+				{this.renderError(formProps.meta)}
+			</div>
+		); 
+	}
+
+	//display error message outside of form when we get a bad response from backend
 	renderErrorAlert = () => {
 		if(this.props.errors != null){
 			return(
@@ -66,7 +77,7 @@ class RegisterForm extends React.Component {
 		}
 	}
 
-	//functional component that display errors after input is touched
+	//display errors when form inputs are touched, handled using redux form
 	renderError = (meta) => {
 		if(meta.touched && meta.error){
 			return(

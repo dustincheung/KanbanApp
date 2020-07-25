@@ -10,6 +10,7 @@ import projectsReducer from "./projectsReducer";
 import projectReducer from "./projectReducer";
 import tasksReducer from "./tasksReducer";
 import taskReducer from "./taskReducer";
+import userReducer from "./userReducer";
 import errorsReducer from "./errorsReducer";
 
 export default combineReducers({
@@ -17,6 +18,7 @@ export default combineReducers({
  project: projectReducer,
  tasks: tasksReducer,
  task: taskReducer,
+ user: userReducer,
  errors: errorsReducer,
  form: formReducer				//formReducer is an already built in reducer that is imported from redux-form
 });

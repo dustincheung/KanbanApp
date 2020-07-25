@@ -4,8 +4,11 @@
  *  with dispatch and getState params, which is essential for async network requests to backend express server or API requests
  */
 
- import axios from "axios";
- import history from "../history";
+import axios from "axios";
+import history from "../history";
+import jwt_decode from "jwt-decode";
+
+import {setTokenInHeader} from "../utils/SecurityFunctions";
 
 //prod and dev uri
 //const uri = process.env.REACT_APP_BACKEND_URI || "http://localhost:8080";
@@ -203,7 +206,7 @@ export const createUser = (formValues) => {
 		try{
 			await axios.post("/users/register", user);
 			dispatch({type: "CLEAR_ERRORS", payload: null});
-			history.push("/projects")
+			history.push("/users/login")
 		}catch(err){
 			dispatch({type: "INDEX_ERRORS", payload: err.response.data});
 		}
@@ -219,10 +222,26 @@ export const loginUser = (formValues) => {
 		}
 
 		try{
+			//post request w/ credentials to login
 			const response = await axios.post("/users/login", loginRequest);
+			
+			//if successful, extract token from response
+			const token = response.data["token"];
 
+			//store token in localStorage
+			localStorage.setItem("token", token);
+
+			//set token in header for all requests
+			setTokenInHeader(token);  
+			
+			//extract user info from jwt
+			const currUserInfo = jwt_decode(token);
+
+			dispatch({type: "SET_USER", payload: currUserInfo});
+			dispatch({type: "CLEAR_ERRORS", payload: null});
+			history.push("/projects");
 		}catch(err){
-
+			dispatch({type: "INDEX_ERRORS", payload: err.response.data});
 		}
 	}
 }
