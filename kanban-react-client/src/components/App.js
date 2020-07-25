@@ -23,7 +23,7 @@ const App = () => {
 			<Router history={history}>
 				<Menu/>
 					<Switch>
-						<Route path="/" exact component={Landing}/> //public 
+						<Route path="/" exact component={Landing}/> 
 						<div className="ui container" style={{width: "70%", padding: "1%"}}>
 							<Route path="/users/register" exact component={RegisterForm}/>
 							<Route path="/users/login" exact component={LoginForm}/>

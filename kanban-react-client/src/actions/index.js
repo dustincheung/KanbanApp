@@ -33,8 +33,9 @@ export const createProject = (formValues) => {
 				endDate: formValues.endDate
 			}
 
-			const response = await axios.post("/projects", project);
+			await axios.post("/projects", project);
 			history.push("/projects");
+			dispatch({type: "CLEAR_ERRORS", payload: null});
 		}catch(err){
 			dispatch({type: "INDEX_ERRORS", payload: err.response.data});
 		}
@@ -58,6 +59,7 @@ export const getProject = (projTag) => {
 		try{
 			const response = await axios.get("/projects/" + projTag);
 			dispatch({type: "GET_PROJECT", payload: response.data});
+			dispatch({type: "CLEAR_ERRORS", payload: null});
 		}catch(err){
 			dispatch({type: "INDEX_ERRORS", payload: err.response.data});
 		}
@@ -79,10 +81,11 @@ export const updateProject = (projTag, formValues) => {
 
 			//b/c our proj has same primary key, mysql db will know to save over the proj with same primary key
 			//otherwise we would have to find and replace project using projTag in backend
-			const response = await axios.put("/projects/" + projTag, project);
+			await axios.put("/projects/" + projTag, project);
 			history.push("/projects");
 
 			dispatch({type: "CLEAR_PROJECT", payload: null});
+			dispatch({type: "CLEAR_ERRORS", payload: null});
 		}catch(err){
 			dispatch({type: "INDEX_ERRORS", payload: err.response.data});
 		}
@@ -117,8 +120,9 @@ export const createTask = (formValues, projTag) => {
 				status: formValues.status
 			}
 
-			const response = await axios.post("/projects/" + projTag + "/tasks", task);
+			await axios.post("/projects/" + projTag + "/tasks", task);
 			history.push("/projects/" + projTag + "/tasks");
+			dispatch({type: "CLEAR_ERRORS", payload: null});
 		}catch(err){
 			dispatch({type: "INDEX_ERRORS", payload: err.response.data});
 		}
@@ -143,6 +147,7 @@ export const getTask = (projTag, taskTag) => {
 		try{
 			const response = await axios.get("/projects/" + projTag + "/tasks/" + taskTag);
 			dispatch({type: "GET_TASK", payload: response.data});
+			dispatch({type: "CLEAR_ERRORS", payload: null});
 		}catch(err){
 			dispatch({type: "INDEX_ERRORS", payload: err.response.data});
 		}
@@ -165,10 +170,11 @@ export const updateTask = (projTag, taskTag, formValues) => {
 
 			//b/c our task has same primary key, mysql db will know to save over the task with same primary key
 			//otherwise we would have to find and replace task using taskTag in backend
-			const response = await axios.put("/projects/" + projTag + "/tasks/" + taskTag, task);
+			await axios.put("/projects/" + projTag + "/tasks/" + taskTag, task);
 			history.push("/projects/" + projTag + "/tasks");
 
 			dispatch({type: "CLEAR_TASK", payload: null});
+			dispatch({type: "CLEAR_ERRORS", payload: null});
 		}catch(err){
 			dispatch({type: "INDEX_ERRORS", payload: err.response.data});
 		}
@@ -177,4 +183,46 @@ export const updateTask = (projTag, taskTag, formValues) => {
 
 export const clearTask = () => {
 	return({type: "CLEAR_TASK", payload: null});
+}
+
+//************************************************
+//			USER ACTION CREATORS
+//************************************************
+
+export const createUser = (formValues) => {
+	return async (dispatch) => {
+
+		//create user obj from formValues
+		const user = {
+			name: formValues.name,
+			username: formValues.username,
+			password: formValues.password,
+			confirmPassword: formValues.confirmPassword
+		}
+
+		try{
+			await axios.post("/users/register", user);
+			dispatch({type: "CLEAR_ERRORS", payload: null});
+			history.push("/projects")
+		}catch(err){
+			dispatch({type: "INDEX_ERRORS", payload: err.response.data});
+		}
+	}
+}
+
+export const loginUser = (formValues) => {
+	return async (dispatch) => {
+		
+		const loginRequest = {
+			username: formValues.username,
+			password: formValues.password
+		}
+
+		try{
+			const response = await axios.post("/users/login", loginRequest);
+
+		}catch(err){
+
+		}
+	}
 }

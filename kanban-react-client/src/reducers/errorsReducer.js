@@ -6,6 +6,8 @@
  	switch(action.type){
  		case "INDEX_ERRORS":
  			return action.payload; 
+ 		case "CLEAR_ERRORS":
+ 			return null;
  		default:
  			return state;
  	}

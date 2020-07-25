@@ -1,9 +1,14 @@
 import React from "react";
+import {connect} from "react-redux";
 import {Field, reduxForm} from 'redux-form'; //import Field component and reduxForm function
+
+import ErrorAlert from "../errors/ErrorAlert";
+import {createUser} from "../../actions";
 
 class RegisterForm extends React.Component {
 	render(){
 		return(
+			<div>
 			<div className="ui raised segment" style={{width: "40%", margin: "auto"}}>
 				<form className="ui form error" onSubmit={this.props.handleSubmit(this.onSubmit)}>
 				<h2 className="ui dividing header">Sign Up!</h2>
@@ -32,11 +37,13 @@ class RegisterForm extends React.Component {
 					</div>
 				</form>
 			</div>
+			{this.renderErrorAlert()}
+			</div>
 		);
 	}
 
 	onSubmit = (formValues) =>{
-		
+		this.props.createUser(formValues);
 	}
 
 	//renders text input, and also accepts redux formProps
@@ -49,6 +56,14 @@ class RegisterForm extends React.Component {
 				{this.renderError(formProps.meta)}
 			</div>
 		); 
+	}
+
+	renderErrorAlert = () => {
+		if(this.props.errors != null){
+			return(
+				<ErrorAlert errors={this.props.errors}/>
+			);
+		}
 	}
 
 	//functional component that display errors after input is touched
@@ -90,4 +105,10 @@ const validate = (formValues) => {
 	return errors;
 };
 
-export default reduxForm({form: "registerForm", validate: validate})(RegisterForm);
+const mapStateToProps = (state) => {
+	return{
+		errors: state.errors
+	};
+}
+
+export default connect(mapStateToProps, {createUser})(reduxForm({form: "registerForm", validate: validate})(RegisterForm));

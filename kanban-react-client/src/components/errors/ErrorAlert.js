@@ -5,7 +5,7 @@ const ErrorAlert = (props) => {
 	var errorMessage = "";
 
 	for(var attr in props.errors){
-		errorMessage += props.errors[attr];
+		errorMessage += props.errors[attr] + ", ";
 	}
 
 	return(

@@ -40,7 +40,7 @@ const renderInfo = () => {
       						<div className="image">
       						</div>
       						<div className="content">
-        						<a className="header">Clearly visualize the whole scope of a project</a>
+        						<h4 className="header">Clearly visualize the whole scope of a project</h4>
       						</div>
     					</div>
   					</div>	
@@ -49,7 +49,7 @@ const renderInfo = () => {
      				<div className="image">
     				</div>
       					<div className="content">
-        					<a className="header">Easily track the status and priority of each task item</a>
+        					<h4 className="header">Easily track the status and priority of each task item</h4>
       					</div>
     				</div>
   				</div>
@@ -58,7 +58,7 @@ const renderInfo = () => {
       					<div className="image">
       					</div>
       					<div className="content">
-        					<a className="header">See insightful statistics about the progree of your project</a>
+        					<h4 className="header">See insightful statistics about the progree of your project</h4>
       					</div>
     				</div>
   				</div>						

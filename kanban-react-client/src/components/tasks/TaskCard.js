@@ -20,6 +20,9 @@ class TaskCard extends React.Component{
       case "DONE":
         this.color = "#B5EFCE";
         break;
+      default:
+        this.color = "#F8C3B9";
+        break;
     } 
   }
 
