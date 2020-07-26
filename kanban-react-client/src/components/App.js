@@ -16,6 +16,7 @@ import ProjectEdit from "./projects/ProjectEdit";
 import TaskBoard from "./tasks/TaskBoard";
 import TaskCreate from "./tasks/TaskCreate";
 import TaskEdit from "./tasks/TaskEdit";
+import store from "../index";
 
 const App = () => {
 	return(

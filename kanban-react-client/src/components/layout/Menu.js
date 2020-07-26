@@ -6,29 +6,51 @@ import React from "react";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 
-import {clearProject} from "../../actions";
+import {clearProject, logoutUser} from "../../actions";
 
 class Menu extends React.Component{
 	render(){
 		return(
-			<div className="ui menu" style={{marginBottom: ".6%"}}>
+			<div className="ui menu" style={{marginBottom: "1.1%"}}>
   				<Link to="/" className="item">
     				KanbanTool
   				</Link>
   				<Link to="/projects" onClick={this.props.clearProject} className="item">
   					Dashboard
   				</Link>
-  				<div className="right menu">
-  					<Link to="/users/register" className="item">
-  						Sign Up
-  					</Link>
-  					<Link to="/users/login" className="item">
-  						Log In
-  					</Link>
-  				</div>
+          {this.renderUserButtons()}
 			</div>												
 		);
 	}
+
+  renderUserButtons = () => {
+    if(!this.props.user){ 
+      return(
+        <div className="right menu"> 
+          <Link to="/users/register" className="item">
+            Sign Up
+          </Link>
+          <Link to="/users/login" className="item">
+            Log In
+          </Link>
+        </div>
+      );
+    }else{
+      return( 
+        <div className="right menu">
+          <a onClick={this.props.logoutUser} className="item">
+            Log Out
+          </a>
+        </div>
+      );
+    }
+  }
 }
 
-export default connect(null, {clearProject})(Menu);
+const mapStateToProps = (state) => {
+  return{
+    user: state.user
+  };
+}
+
+export default connect(mapStateToProps, {clearProject, logoutUser})(Menu);

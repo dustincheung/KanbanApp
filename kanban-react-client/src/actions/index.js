@@ -245,3 +245,17 @@ export const loginUser = (formValues) => {
 		}
 	}
 }
+
+export const logoutUser = () => {
+	//clear out token from local storage
+	localStorage.removeItem("token");
+
+	//clear out request header
+	setTokenInHeader(false);
+
+	//redirect to landing page
+	history.push("/");
+
+	//clear out user state
+	return({type: "SET_USER", payload: null});
+}
