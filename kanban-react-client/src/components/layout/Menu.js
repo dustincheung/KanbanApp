@@ -11,36 +11,47 @@ import {clearProject, logoutUser} from "../../actions";
 class Menu extends React.Component{
 	render(){
 		return(
-			<div className="ui menu" style={{marginBottom: "1.1%"}}>
-  				<Link to="/" className="item">
-    				KanbanTool
-  				</Link>
-  				<Link to="/projects" onClick={this.props.clearProject} className="item">
-  					Dashboard
-  				</Link>
+        <div>
           {this.renderUserButtons()}
-			</div>												
+        </div>											
 		);
 	}
 
   renderUserButtons = () => {
     if(!this.props.user){ 
       return(
-        <div className="right menu"> 
-          <Link to="/users/register" className="item">
-            Sign Up
-          </Link>
-          <Link to="/users/login" className="item">
-            Log In
-          </Link>
+        <div className="ui menu" style={{marginBottom: "14px"}}>
+          <Link to="/" className="item">
+            KanbanTool
+          </Link>  
+          <div className="right menu"> 
+            <Link to="/users/register" className="item">
+              Sign Up
+            </Link>
+            <Link to="/users/login" className="item">
+              Log In
+            </Link>
+          </div>
         </div>
       );
     }else{
       return( 
-        <div className="right menu">
-          <a onClick={this.props.logoutUser} className="item">
-            Log Out
-          </a>
+        <div className="ui menu" style={{marginBottom: "14px"}}>
+          <Link to="/" className="item">
+            KanbanTool
+          </Link>
+          <Link to="/projects" onClick={this.props.clearProject} className="item">
+            Dashboard
+          </Link>  
+          <div className="right menu">
+            <a className="item">
+              <i class="user circle outline icon"></i>
+              {this.props.user.name}
+            </a>
+            <a onClick={this.props.logoutUser} className="item">
+              Log Out
+            </a>
+          </div>
         </div>
       );
     }
