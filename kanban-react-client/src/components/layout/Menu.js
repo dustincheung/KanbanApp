@@ -45,10 +45,10 @@ class Menu extends React.Component{
           </Link>  
           <div className="right menu">
             <a className="item">
-              <i class="user circle outline icon"></i>
+              <i className="user circle outline icon"></i>
               {this.props.user.name}
             </a>
-            <a onClick={this.props.logoutUser} className="item">
+            <a className="item" onClick={this.props.logoutUser}>
               Log Out
             </a>
           </div>

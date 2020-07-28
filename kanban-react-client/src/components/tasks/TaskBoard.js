@@ -29,7 +29,7 @@ class TaskBoard extends React.Component{
   						{this.renderCreateButton()}
   					</div>
 				</div>
-				<div class="ui divider"></div>
+				<div className="ui divider"></div>
 				{this.renderSwimLanes()}
 			</div>
 

@@ -16,7 +16,6 @@ import ProjectEdit from "./projects/ProjectEdit";
 import TaskBoard from "./tasks/TaskBoard";
 import TaskCreate from "./tasks/TaskCreate";
 import TaskEdit from "./tasks/TaskEdit";
-import store from "../index";
 import SecureRouting from "../utils/SecureRouting"; //require user auth to access
 
 const App = () => {

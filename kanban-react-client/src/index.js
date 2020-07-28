@@ -27,7 +27,6 @@ const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
 const token = localStorage.token;
 
 if(token){
-	console.log("GETTING LOCAL STORAGE");
 	setTokenInHeader(token);
 	const currUserInfo = jwt_decode(token);
 

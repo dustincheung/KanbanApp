@@ -58,8 +58,7 @@ class TaskForm extends React.Component {
 		); 
 	}
 
-	renderTextArea = (formProps) => {		
-		console.log("textarea");				
+	renderTextArea = (formProps) => {					
 		return(
 			<div className="form-group">					
 				<label>{formProps.label}</label>

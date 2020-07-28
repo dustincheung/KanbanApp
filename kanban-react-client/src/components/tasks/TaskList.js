@@ -5,8 +5,6 @@ import TaskCard from "./TaskCard";
 class TaskList extends React.Component{
 	render(){
 		let tasks = this.props.tasks;
-		console.log("TASKLIST ");
-		console.log(tasks);
 
 		return(
 			<div>
