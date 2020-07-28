@@ -6,7 +6,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 
-import {clearProject, logoutUser} from "../../actions";
+import {clearProject, clearErrors, logoutUser} from "../../actions";
 
 class Menu extends React.Component{
 	render(){
@@ -37,10 +37,10 @@ class Menu extends React.Component{
     }else{
       return( 
         <div className="ui menu" style={{marginBottom: "14px"}}>
-          <Link to="/" className="item">
+          <Link to="/" onClick={this.clearProjectAndErrors} className="item">
             KanbanTool
           </Link>
-          <Link to="/projects" onClick={this.props.clearProject} className="item">
+          <Link to="/projects" onClick={this.clearProjectAndErrors} className="item">
             Dashboard
           </Link>  
           <div className="right menu">
@@ -56,6 +56,11 @@ class Menu extends React.Component{
       );
     }
   }
+
+  clearProjectAndErrors = () => {
+    this.props.clearProject();
+    this.props.clearErrors();
+  }
 }
 
 const mapStateToProps = (state) => {
@@ -64,4 +69,4 @@ const mapStateToProps = (state) => {
   };
 }
 
-export default connect(mapStateToProps, {clearProject, logoutUser})(Menu);
+export default connect(mapStateToProps, {clearProject, clearErrors, logoutUser})(Menu);

@@ -11,10 +11,10 @@ class TaskForm extends React.Component {
 				<form className="ui form error" onSubmit={this.props.handleSubmit(this.onSubmit)}>
 					<h2 className="ui dividing header">Task Information</h2>
 					<div className="form-row">
-						<div className="form-group col-md-8">
+						<div className="form-group col-md-7">
 							<Field name="taskTitle" label="Task Title: " component={this.renderFieldText}/>
 						</div>
-						<div className="form-group col-md-4">
+						<div className="form-group col-md-5">
 							<Field name="dueDate" label="Due Date:  " component={this.renderFieldDate}/>
 						</div>
 					</div>

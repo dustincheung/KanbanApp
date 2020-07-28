@@ -10,6 +10,6 @@ public class SecurityConstants {
 	public static final String JWT_PREFIX = "Bearer ";
 	public static final String HEADER_STRING = "Authorization";
 	public static final String JWT_SECRET = "jwtsecretkey";
-	public static final long EXPIRATION_TIME = 35_000; //30 seconds expiration time
+	public static final long EXPIRATION_TIME = 7_200_000; //2 hour expiration time
 
 }

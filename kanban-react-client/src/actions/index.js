@@ -259,3 +259,10 @@ export const logoutUser = () => {
 	//clear out user state
 	return({type: "SET_USER", payload: null});
 }
+
+//************************************************
+//			ERRORS ACTION CREATORS
+//************************************************
+export const clearErrors = () => {
+	return({type: "CLEAR_ERRORS", payload: null});
+}
