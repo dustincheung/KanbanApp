@@ -17,6 +17,7 @@ import TaskBoard from "./tasks/TaskBoard";
 import TaskCreate from "./tasks/TaskCreate";
 import TaskEdit from "./tasks/TaskEdit";
 import store from "../index";
+import SecureRouting from "../utils/SecureRouting"; //require user auth to access
 
 const App = () => {
 	return(
@@ -28,12 +29,15 @@ const App = () => {
 						<div className="ui container" style={{width: "70%", padding: "1%"}}>
 							<Route path="/users/register" exact component={RegisterForm}/>
 							<Route path="/users/login" exact component={LoginForm}/>
-							<Route path="/projects" exact component={ProjectDashboard}/>
-							<Route path="/projects/new" exact component={ProjectCreate}/>
-							<Route path="/projects/:projTag/edit" exact component={ProjectEdit}/>
-							<Route path="/projects/:projTag/tasks" exact component={TaskBoard}/>
-							<Route path="/projects/:projTag/tasks/new" exact component={TaskCreate}/>
-							<Route path="/projects/:projTag/tasks/:taskTag/edit" exact component={TaskEdit}/>
+							{
+								//Private Routes that require user authentication to access
+							}
+							<SecureRouting path="/projects" exact component={ProjectDashboard}/>
+							<SecureRouting path="/projects/new" exact component={ProjectCreate}/>
+							<SecureRouting path="/projects/:projTag/edit" exact component={ProjectEdit}/>
+							<SecureRouting path="/projects/:projTag/tasks" exact component={TaskBoard}/>
+							<SecureRouting path="/projects/:projTag/tasks/new" exact component={TaskCreate}/>
+							<SecureRouting path="/projects/:projTag/tasks/:taskTag/edit" exact component={TaskEdit}/>
 						</div>
 					</Switch>
 			</Router>
