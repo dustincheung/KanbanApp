@@ -1,3 +1,8 @@
+/*
+ *  Service class for projects.  Handles application logic and exception handling before performing
+ *  operations on the database.  
+ */
+
 package kanbanapp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,3 +1,8 @@
+/*
+ *  Repository class for Task, handles CRUD operations on database. Inherits CRUD methods from 
+ *  CrudRepository class.
+ */
+
 package kanbanapp.repository;
 
 import java.util.List;

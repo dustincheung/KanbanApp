@@ -1,3 +1,7 @@
+/*
+ *  Request Object that will be sent from client app to user login route
+ */
+
 package kanbanapp.payload;
 
 import javax.validation.constraints.NotBlank;

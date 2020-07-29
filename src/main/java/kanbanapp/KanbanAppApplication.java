@@ -1,3 +1,7 @@
+/*
+ *  Main class that starts Spring Framework
+ */
+
 package kanbanapp;
 
 import org.springframework.boot.SpringApplication;

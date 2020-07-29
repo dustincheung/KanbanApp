@@ -1,3 +1,8 @@
+/*
+ *  Implements UserDetailsService from Spring Security. Overrides methods from UserDetailsService
+ *  to get our user object to work with Spring Security.
+ */
+
 package kanbanapp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,11 @@
 /*
  *  This class is the exception controller, handles all custom exceptions. Determines which exception 
  *  response is to be returned when the application throws a specific custom exception
+ *  
+ *  The exception flow is:
+ *  	- service class upon error that should be handled, will throw new exception obj with a string
+ *  	- this class (custom exception handler) determines which exception response to create
+ *  	- exception response (with string msg) is returned
  */
 
 package kanbanapp.Exception;

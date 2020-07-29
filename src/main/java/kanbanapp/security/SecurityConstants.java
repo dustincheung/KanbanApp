@@ -1,3 +1,7 @@
+/*
+ *  Class that contains all constants used in the security context.
+ */
+
 package kanbanapp.security;
 
 public class SecurityConstants {

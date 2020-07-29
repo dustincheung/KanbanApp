@@ -1,3 +1,8 @@
+/*
+ *  Response Object sent to client on successful authentication.  Contains boolean success and the
+ *  JSON web token that will be used in header of all requests.
+ */
+
 package kanbanapp.payload;
 
 public class JWTSuccessResponse {

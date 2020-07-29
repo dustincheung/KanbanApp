@@ -1,3 +1,7 @@
+/*
+ *  User entity model
+ */
+
 package kanbanapp.model;
 
 import java.util.ArrayList;

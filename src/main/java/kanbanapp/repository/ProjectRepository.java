@@ -1,3 +1,8 @@
+/*
+ *  Repository class for Project, handles CRUD operations on database. Inherits CRUD methods from 
+ *  CrudRepository class.
+ */
+
 package kanbanapp.repository;
 
 import org.springframework.data.repository.CrudRepository;

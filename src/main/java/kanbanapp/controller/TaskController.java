@@ -1,3 +1,7 @@
+/*
+ *  Controller class that handles RESTful routes for tasks.  Allows for cross origin requests.
+ */
+
 package kanbanapp.controller;
 
 import java.security.Principal;
@@ -29,13 +33,13 @@ public class TaskController {
 	@Autowired
 	ErrorMappingService errorMappingService;
 	
-	// Index Route
+	//Index Route
 	@RequestMapping("/projects/{projTag}/tasks")
 	public Iterable<Task> indexTasks (@PathVariable String projTag, Principal principal){
 		return taskService.indexTasks(projTag, principal.getName());
 	}
 	
-	// Create Route
+	//Create Route
 	@RequestMapping(method = RequestMethod.POST, value = "/projects/{projTag}/tasks")
 	public ResponseEntity<?> createTask(@Valid @RequestBody Task task, @PathVariable String projTag, Principal principal, BindingResult result){
 		
@@ -50,7 +54,7 @@ public class TaskController {
 		return new ResponseEntity<Task>(newTask, HttpStatus.CREATED);
 	}
 	
-	// Show Route
+	//Show Route
 	@RequestMapping("/projects/{projTag}/tasks/{taskTag}")
 	public ResponseEntity<?> showTask(@PathVariable String projTag, @PathVariable String taskTag, Principal principal){
 		Task task = taskService.showTask(projTag, taskTag, principal.getName());
@@ -58,7 +62,7 @@ public class TaskController {
 		return new ResponseEntity<Task>(task, HttpStatus.OK);
 	}
 	
-	// Update Route is passed in updated task obj in request body
+	//Update Route is passed in updated task obj in request body
 	@RequestMapping(method = RequestMethod.PUT, value = "/projects/{projTag}/tasks/{taskTag}")
 	public ResponseEntity<?> updateTask(@Valid @RequestBody Task task, @PathVariable String projTag, @PathVariable String taskTag, Principal principal, BindingResult result){
 		
@@ -73,7 +77,7 @@ public class TaskController {
 		return new ResponseEntity<Task>(updatedTask, HttpStatus.OK);
 	}
 	
-	// Delete Route
+	//Delete Route
 	@RequestMapping(method = RequestMethod.DELETE, value = "/projects/{projTag}/tasks/{taskTag}/delete")
 	public ResponseEntity<?> deleteTask(@PathVariable String projTag, @PathVariable String taskTag, Principal principal){
 		taskService.deleteTaskbyTaskTag(projTag, taskTag, principal.getName());

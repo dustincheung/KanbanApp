@@ -1,3 +1,7 @@
+/*
+ *  Controller class that handles RESTful routes for users.  Allows for cross origin requests.
+ */
+
 package kanbanapp.controller;
 
 import javax.validation.Valid;
@@ -42,13 +46,14 @@ public class UserController {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	
+	//Create Route
 	@RequestMapping(method = RequestMethod.POST, value = "/users/register")
 	public ResponseEntity<?> createUser(@Valid @RequestBody User user, BindingResult result){
 		
 		//validate password (length and matching passwords)
 		userValidator.validate(user, result);
 		
-		//handles col conditions 
+		//handles sql col conditions defined in jpa model classes
 		ResponseEntity<?> mapErrors = errorMappingService.mapErrors(result);
 		
 		if(mapErrors != null) {
@@ -59,6 +64,7 @@ public class UserController {
 		return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
 	}
 	
+	//Login Route
 	//takes in loginRequest payload, authenticates the returns JWTSuccessResponse with JWT
 	@RequestMapping(method = RequestMethod.POST, value = "/users/login")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult result){
@@ -67,10 +73,7 @@ public class UserController {
 		if(mapErrors != null) {
 			return mapErrors;
 		}
-		
-		System.out.println("AUTHENTICATING");
-		System.out.println(loginRequest.getUsername());
-		System.out.println(loginRequest.getPassword());
+	
 		//authenticate using user info from LoginRequest payload
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(
@@ -79,8 +82,6 @@ public class UserController {
 				)
 		);
 		
-		
-		System.out.println("HERE");
 		//create JWT
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String jwt = JWT_PREFIX + tokenProvider.generateToken(authentication);

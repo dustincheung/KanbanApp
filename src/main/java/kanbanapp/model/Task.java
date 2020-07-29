@@ -1,3 +1,7 @@
+/*
+ *  Task entity model
+ */
+
 package kanbanapp.model;
 
 import java.util.Date;
@@ -20,12 +24,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class Task {
 	
-	// primary key, id will use database server side strategy to dictate value (auto-increment)
+	//primary key, id will use database server side strategy to dictate value (auto-increment)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	// we will use this as a formatted type "id": PROJ-1 where PROJ is projTag and 1 is taskSeqIncrementor from backlog
+	//we will use this as a formatted type "id": PROJ-1 where PROJ is projTag and 1 is taskSeqIncrementor from backlog
 	@Column(updatable = false, unique = true)
 	private String taskTag;
 
@@ -47,7 +51,7 @@ public class Task {
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date dueDate;
 	
-	// ManyToOne relationship with Backlog
+	//ManyToOne relationship with Backlog
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="backlog_id", nullable = false, updatable = false)
 	@JsonIgnore
@@ -60,19 +64,19 @@ public class Task {
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date updatedDate;
 	
-	// no arg constructor
+	//no arg constructor
 	public Task() {
 		
 	}
 			
 	@PrePersist
-	// stores the date of creation when a Project object is created
+	//stores the date of creation when a Project object is created
 	protected void onCreate() {
 		this.createdDate = new Date();
 	}
 			
 	@PreUpdate
-	// stores the date of update when a Project object is updated
+	//stores the date of update when a Project object is updated
 	protected void onUpdate(){
 		this.updatedDate = new Date();
 	}

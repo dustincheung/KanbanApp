@@ -1,3 +1,8 @@
+/*
+ *  Service class that handles mapping errors (sql col errors that occur from failing conditions
+ *  annotated in our jpa model entity classes)
+ */
+
 package kanbanapp.service;
 
 import java.util.HashMap;

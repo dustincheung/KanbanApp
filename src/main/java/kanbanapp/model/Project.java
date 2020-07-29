@@ -1,3 +1,7 @@
+/*
+ *  Project entity model
+ */
+
 package kanbanapp.model;
 
 import javax.persistence.CascadeType;
@@ -22,11 +26,12 @@ import java.util.Date;
 @Entity
 public class Project {
 		
-		// primary key, id will use database server side strategy to dictate value (auto-increment)
+		//primary key, id will use database server side strategy to dictate value (auto-increment)
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		private Long id;
 		
+		//API uses projTag as main key of identification, backlog also contains projTag
 		@NotBlank(message = "Project Tag is a required field")
 		@Column(unique = true, updatable = false)
 		@Size(min=4, max=5, message = "Project Tag must be 4 to 5 characters")
@@ -51,9 +56,9 @@ public class Project {
 		@JsonFormat(pattern = "yyyy-MM-dd")
 		private Date updatedDate;
 		
-		// fetch type: eager means fetch load associated data immediately w/ the rest of the fields
-		// cascade type: specifies the Project is the "owning" side of the relationship (if proj is deleted, all children objs are deleted)
-		// mappedBy: specifies exact name of project field in Backlog obj
+		//fetch type: eager means fetch load associated data immediately w/ the rest of the fields
+		//cascade type: specifies the Project is the "owning" side of the relationship (if proj is deleted, all children objs are deleted)
+		//mappedBy: specifies exact name of project field in Backlog obj
 		@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project")
 		@JsonIgnore
 		private Backlog backlog;
@@ -64,24 +69,24 @@ public class Project {
 		
 		private String projOwner;
 		
-		// no arg constructor
+		//no arg constructor
 		public Project() {
 			
 		}
 		
 		@PrePersist
-		// stores the date of creation when a Project object is created
+		//stores the date of creation when a Project object is created
 		protected void onCreate() {
 			this.createdDate = new Date();
 		}
 		
 		@PreUpdate
-		// stores the date of update when a Project object is updated
+		//stores the date of update when a Project object is updated
 		protected void onUpdate(){
 			this.updatedDate = new Date();
 		}
 		
-		// getters/setters for all class fields
+		//getters/setters for all class fields
 		public Long getId() {
 			return id;
 		}

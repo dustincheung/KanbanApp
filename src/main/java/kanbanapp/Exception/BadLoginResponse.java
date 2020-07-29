@@ -1,5 +1,6 @@
 /*
- *  This class acts as an exception for a bad login 
+ *  This class is the exception response, it contains two string messages. It is returned by an
+ *  exception handler in the CustomExceptionResponseHandler class.
  */
 
 package kanbanapp.Exception;

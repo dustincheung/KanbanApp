@@ -1,3 +1,7 @@
+/*
+ *  Controller class that handles RESTful routes for projects.  Allows for cross origin requests.
+ */
+
 package kanbanapp.controller;
 
 import java.security.Principal;
@@ -26,15 +30,16 @@ public class ProjectController {
 	@Autowired
 	ProjectService projectService;
 	
-	@Autowired ErrorMappingService errorMappingService;
+	@Autowired 
+	ErrorMappingService errorMappingService;
 	
-	// Index Route
+	//Index Route
 	@RequestMapping("/projects")
 	public Iterable<Project> indexProjects(Principal principal){
 		return projectService.indexProjects(principal.getName());
 	}
 	  
-	// Create Route 
+	//Create Route 
 	@RequestMapping(method = RequestMethod.POST, value = "/projects")
 	public ResponseEntity<?> createProject(@Valid @RequestBody Project project, Principal principal, BindingResult result){
 		
@@ -48,7 +53,7 @@ public class ProjectController {
 		return new ResponseEntity<Project>(project, HttpStatus.CREATED);
 	}
 	
-	// Show Route
+	//Show Route
 	@RequestMapping("/projects/{projTag}")
 	public ResponseEntity<?> showProject(@PathVariable String projTag, Principal principal){
 		Project projectToShow = projectService.showProject(projTag, principal.getName());
@@ -56,7 +61,7 @@ public class ProjectController {
 		return new ResponseEntity<Project>(projectToShow, HttpStatus.OK);
 	}
 	
-	// Update Route
+	//Update Route
 	@RequestMapping(method = RequestMethod.PUT, value = "/projects/{projTag}")
 	public ResponseEntity<?> updateProject(@RequestBody Project project, @PathVariable String projTag, Principal principal){
 		//not necessary to pass in projTag b/c our project in the body will contain primary key id already
@@ -64,7 +69,7 @@ public class ProjectController {
 		return new ResponseEntity<Project>(project, HttpStatus.OK);
 	}
 	
-	// Delete Route
+	//Delete Route
 	@RequestMapping(method = RequestMethod.DELETE, value = "/projects/{projTag}/delete")
 	public ResponseEntity<?> deleteProject(@PathVariable String projTag, Principal principal){
 		projectService.deleteProjectByProjTag(projTag, principal.getName());

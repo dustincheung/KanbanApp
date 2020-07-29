@@ -1,5 +1,6 @@
 /*
- *  This class is a subclass of RuntimeException, it is an exception that contains a single message
+ *  This class is a subclass of RuntimeException, it is an exception that contains a single message.
+ *  It is thrown by a service class when an error that should be handled occurs.
  */
 
 package kanbanapp.Exception;

@@ -1,3 +1,7 @@
+/*
+ *  Backlog entity model
+ */
+
 package kanbanapp.model;
 
 import java.util.ArrayList;
@@ -18,30 +22,30 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class Backlog {
 	
-	// primary key, id will use database server side strategy to dictate value (auto-increment)
+	//primary key, id will use database server side strategy to dictate value (auto-increment)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	// this incrementor is used in the taskTag, it is appeneded to the projTag to create a readable taskTag (PROJ-1)
+	//this incrementer is used in the taskTag, it is appended to the projTag to create a readable taskTag (PROJ-1)
 	private Integer taskSeqIncrementor = 1;
 	
-	// api uses projTag as main key of identification, this field provides us easy access to associated projTag
+	//API uses projTag as main key of identification, this field provides us easy access to associated projTag
 	private String projTag;
 	
-	// Foreign Key: OneToOne relationship with project
+	//Foreign Key: OneToOne relationship with project
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "project_id", nullable = false)
 	@JsonIgnore
 	private Project project;
 	
-	// Foreign Key: OneToMany relationship with tasks
-	// Refresh: indicates to refresh tasks list when it is modified (such as when a task is deleted)
-	// OrphanRemoval: when backlog is deleted, we want the orphaned tasks to be also deleted
+	//Foreign Key: OneToMany relationship with tasks
+	//Refresh: indicates to refresh tasks list when it is modified (such as when a task is deleted)
+	//OrphanRemoval: when backlog is deleted, we want the orphaned tasks to be also deleted
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, mappedBy = "backlog", orphanRemoval = true)
 	private List<Task> tasks = new ArrayList<>();
 	
-	// no-arg constructor
+	//no-arg constructor
 	public Backlog() {
 		
 	}

@@ -1,3 +1,8 @@
+/*
+ *  Validator class that validates attributes of the user.  Specifically ensures password is valid in length
+ *  and confirmPassword is the same as password.
+ */
+
 package kanbanapp.validator;
 
 import org.springframework.stereotype.Component;
