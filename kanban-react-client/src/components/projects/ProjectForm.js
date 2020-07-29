@@ -1,3 +1,7 @@
+/*	
+ * 	Redux Form component for creating/updating a project
+ */
+
 import React from "react";
 import {Field, reduxForm} from 'redux-form'; //import Field component and reduxForm function
 

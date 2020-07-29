@@ -1,3 +1,7 @@
+/*	
+ * 	ProjectEdit Component renders ProjectForm with initial values of current Project in state
+ */
+
 import React from "react";
 import {connect} from "react-redux";
 
@@ -8,22 +12,17 @@ import {getProject, updateProject} from "../../actions";
 class ProjectEdit extends React.Component{
 
 	componentDidMount(){
-		console.log("componentDidMount CALLED");
 		const projTag = this.props.match.params.projTag;
 		this.props.getProject(projTag);
 
 	}
 
 	render(){
-
-		console.log("RENDER CALLED");
 		if(!this.props.project){
 			return(
 				<div> LOADING </div>
 			)
 		}
-
-		console.log("Render" + this.props.project.projTitle)
 
 		return(
 			<div style={{margin: "5%"}}>
@@ -54,8 +53,6 @@ class ProjectEdit extends React.Component{
 }
 
 const mapStateToProps = (state) => {
-	console.log("mapStateToProps CALLED");
-
 	return{
 		project: state.project,
 		errors: state.errors

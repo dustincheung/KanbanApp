@@ -1,3 +1,7 @@
+/*	
+ * 	Project Create Component renders the ProjectForm and passes it onSubmit function
+ */
+
 import React from "react";
 import {connect} from "react-redux";
 

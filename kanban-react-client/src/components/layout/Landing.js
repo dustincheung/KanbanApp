@@ -1,3 +1,7 @@
+/*  
+ *   Landing Component that displays buttons to register and log in
+ */
+
 import React from "react";
 import {Link} from "react-router-dom";
 

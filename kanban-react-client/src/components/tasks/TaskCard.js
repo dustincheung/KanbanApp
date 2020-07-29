@@ -1,3 +1,7 @@
+/*  
+ *   TaskCard Component renders small summary card view of a task
+ */
+
 import React from "react";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
@@ -10,6 +14,7 @@ class TaskCard extends React.Component{
     super(props);
     this.task = this.props.task; //this context is accessible by lifecyle methods and arrow functions
     
+    //determines color of card based on status type
     switch(this.props.status){
       case "TODO":
         this.color = "#F8C3B9";

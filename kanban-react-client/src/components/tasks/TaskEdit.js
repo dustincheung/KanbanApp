@@ -1,3 +1,7 @@
+/*	
+ * 	TaskEdit Component renders TaskForm for editing a task, initialize form with current task in state
+ */
+
 import React from "react";
 import {connect} from "react-redux";
 

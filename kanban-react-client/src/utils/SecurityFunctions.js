@@ -1,3 +1,7 @@
+/*	
+ * 	This file contains security util functions
+ */
+
 import axios from "axios";
 
 //sets authorization header for all axios requests to the token

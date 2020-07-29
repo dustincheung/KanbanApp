@@ -1,3 +1,7 @@
+/*	
+ * 	TaskCreate Component renders TaskForm for creating a new task
+ */
+
 import React from "react";
 import {connect} from "react-redux";
 

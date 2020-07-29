@@ -10,9 +10,6 @@ import jwt_decode from "jwt-decode";
 
 import {setTokenInHeader} from "../utils/SecurityFunctions";
 
-//prod and dev uri
-//const uri = process.env.REACT_APP_BACKEND_URI || "http://localhost:8080";
-
 //************************************************
 //			PROJECTS ACTION CREATORS
 //************************************************

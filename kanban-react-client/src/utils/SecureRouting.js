@@ -1,3 +1,8 @@
+/*	
+ * 	SecureRouting component is used instead of Route component to ensure the route can only be accessed
+ *  if the user is signed in, if not it will redirect to login page
+ */
+
 import React from "react";
 import PropTypes from "prop-types"; //used to validate props
 import {connect} from "react-redux";
@@ -12,6 +17,7 @@ const SecureRouting = ({component: Component, user, ...otherProps}) => {
   	);
 };
 
+//validates props
 SecureRouting.propTypes = {
   user: PropTypes.object
 };

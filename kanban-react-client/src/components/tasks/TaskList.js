@@ -1,3 +1,7 @@
+/*	
+ * 	TaskList component renders a column of TaskCard components
+ */
+
 import React from "react";
 
 import TaskCard from "./TaskCard";
