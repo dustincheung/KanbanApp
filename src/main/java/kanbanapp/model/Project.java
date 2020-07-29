@@ -18,6 +18,8 @@ import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Formula;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -68,6 +70,14 @@ public class Project {
 		private User user;
 		
 		private String projOwner;
+		
+		private int todoCount;
+		
+		private int inProgCount;
+		
+		private int doneCount;
+		
+		private int totalTaskCount;
 		
 		//no arg constructor
 		public Project() {
@@ -173,5 +183,37 @@ public class Project {
 
 		public void setProjOwner(String projOwner) {
 			this.projOwner = projOwner;
+		}
+
+		public int getTodoCount() {
+			return todoCount;
+		}
+
+		public void setTodoCount(int todoCount) {
+			this.todoCount = todoCount;
+		}
+
+		public int getInProgCount() {
+			return inProgCount;
+		}
+
+		public void setInProgCount(int inProgCount) {
+			this.inProgCount = inProgCount;
+		}
+
+		public int getDoneCount() {
+			return doneCount;
+		}
+
+		public void setDoneCount(int doneCount) {
+			this.doneCount = doneCount;
+		}
+
+		public int getTotalTaskCount() {
+			return totalTaskCount;
+		}
+
+		public void setTotalTaskCount(int totalTaskCount) {
+			this.totalTaskCount = totalTaskCount;
 		}	
 }

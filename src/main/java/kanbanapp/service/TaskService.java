@@ -10,12 +10,16 @@ import org.springframework.stereotype.Service;
 
 import kanbanapp.Exception.BacklogNotFoundException;
 import kanbanapp.model.Backlog;
+import kanbanapp.model.Project;
 import kanbanapp.model.Task;
 import kanbanapp.repository.BacklogRepository;
+import kanbanapp.repository.ProjectRepository;
 import kanbanapp.repository.TaskRepository;
 
 @Service
 public class TaskService {
+	@Autowired
+	private ProjectRepository projectRepository;
 	
 	@Autowired
 	private BacklogRepository backlogRepository;
@@ -67,6 +71,9 @@ public class TaskService {
 				task.setStatus("Todo");
 			}
 			
+			//create task statistics in proj
+			createProjectStats(backlog, task.getStatus());
+			
 			return taskRepository.save(task);
 		}catch(Exception e) {
 			throw new BacklogNotFoundException("Backlog with the projTag specified not found");
@@ -111,6 +118,14 @@ public class TaskService {
 		}
 		
 		try {
+			//save prior status so we can decrement
+			Task existentTask = taskRepository.findByTaskTag(updatedTask.getTaskTag());
+			String priorTaskStatus = existentTask.getStatus();
+			
+			//update task statistics in project, by decrementing past stat and incrementing updated stat
+			deleteProjectStats(backlog, priorTaskStatus);
+			createProjectStats(backlog, updatedTask.getStatus());
+			
 			return taskRepository.save(updatedTask);
 		}catch(Exception e) {
 			throw new BacklogNotFoundException("Task update failed");
@@ -133,6 +148,51 @@ public class TaskService {
 			throw new BacklogNotFoundException("Task Tag " + taskTag + " does not exist");
 		}
 		
+		//decrement task statistics in proj
+		deleteProjectStats(backlog, taskToDelete.getStatus());
+		
 		taskRepository.delete(taskToDelete);
 	}
+	
+	public void createProjectStats(Backlog backlog, String taskStatus) {
+		Project project = backlog.getProject();
+		
+		project.setTotalTaskCount(project.getTotalTaskCount() + 1);
+		
+		switch(taskStatus) {
+			case "Todo":
+				project.setTodoCount(project.getTodoCount() + 1);
+				break;
+			case "In Progress":
+				project.setInProgCount(project.getInProgCount() + 1);
+				break;
+			case "Done":
+				project.setDoneCount(project.getDoneCount() + 1);
+				break;
+			default:
+				break;
+		}
+	}
+	
+	public void deleteProjectStats(Backlog backlog, String taskStatus) {
+		Project project = backlog.getProject();
+		
+		project.setTotalTaskCount(project.getTotalTaskCount() - 1);
+		
+		switch(taskStatus) {
+			case "Todo":
+				project.setTodoCount(project.getTodoCount() - 1);
+				break;
+			case "In Progress":
+				project.setInProgCount(project.getInProgCount() - 1);
+				break;
+			case "Done":
+				project.setDoneCount(project.getDoneCount() - 1);
+				break;
+			default:
+				break;
+		}
+	}
+	
+	
 }

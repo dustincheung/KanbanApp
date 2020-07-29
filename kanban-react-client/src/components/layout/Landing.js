@@ -62,7 +62,7 @@ const renderInfo = () => {
       					<div className="image">
       					</div>
       					<div className="content">
-        					<h4 className="header">See insightful statistics about the progree of your project</h4>
+        					<h4 className="header">See insightful statistics about the progress of your project</h4>
       					</div>
     				</div>
   				</div>						
