@@ -15,7 +15,7 @@
 	<description>Kanban App provides an easy to use GUI to allow users to utilize kanban to tackle their project tasking needs.</description>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>8</java.version>
 	</properties>
 
 	<dependencies>
