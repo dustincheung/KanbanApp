@@ -47,15 +47,15 @@ class ProjectCard extends React.Component{
 		return(
 			<div className="ui mini statistics" style={{marginRight: "1%", float: "right"}}>
   				<div className="ui horizontal red statistic">
-   						<div className="value"> 20 </div>
+   						<div className="value"> {this.props.project.todoCount} </div>
     				<div className="label"> Todo </div>
   				</div>
   				<div className="ui horizontal yellow statistic">
-    				<div className="value"> 10</div>
+    				<div className="value"> {this.props.project.inProgCount} </div>
     				<div className="label"> In Progress </div>
   				</div>
   				<div className="ui horizontal green statistic">
-    				<div className="value"> 6 </div>
+    				<div className="value"> {this.props.project.doneCount} </div>
     				<div className="label"> Done </div>
   				</div>
 			</div>

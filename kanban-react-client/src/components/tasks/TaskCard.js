@@ -6,7 +6,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 
-import {deleteTask} from "../../actions";
+import {deleteTask, getProject} from "../../actions";
 
 class TaskCard extends React.Component{
   
@@ -63,10 +63,11 @@ class TaskCard extends React.Component{
     );
   }
 
-  onDeleteClick = (event) => {
+  onDeleteClick = async (event) => {
     event.stopPropagation();
-    this.props.deleteTask(this.props.task.projTag, this.props.task.taskTag);
+    await this.props.deleteTask(this.props.task.projTag, this.props.task.taskTag);
+    this.props.getProject(this.props.task.projTag);
   }
 }
 
-export default connect(null, {deleteTask})(TaskCard);
+export default connect(null, {deleteTask, getProject})(TaskCard);

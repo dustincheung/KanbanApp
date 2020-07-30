@@ -5,15 +5,17 @@
 import React from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
+import {Progress} from "semantic-ui-react";
 
 import TaskList from "./TaskList";
-import {getTasks, clearTask} from "../../actions";
+import {getTasks, getProject, clearTask} from "../../actions";
 
 class TaskBoard extends React.Component{
 	
 	componentDidMount(){
 		const projTag = this.props.match.params.projTag;
 		this.props.getTasks(projTag);
+		this.props.getProject(projTag);
 		this.props.clearTask(); //clears Task state when update is cancelled
 	}
 
@@ -35,6 +37,7 @@ class TaskBoard extends React.Component{
 				</div>
 				<div className="ui divider"></div>
 				{this.renderSwimLanes()}
+				{this.renderProgressBar()}		
 			</div>
 
 		);
@@ -48,34 +51,49 @@ class TaskBoard extends React.Component{
 		);
 	}
 
-	renderSwimLanes(){
+	renderSwimLanes = () => {
 		return(
 			<div className="ui internally celled grid">
   				<div className="three column row">
     				<div className="column">
-    					<h3 className="ui block header"> Todo </h3>
+    					<h3 className="ui block header" style={{fontFamily: "Roboto", fontWeight: "400", textAlign: "center"}}> Todo </h3>
     					<TaskList tasks={this.props.tasksTodo} status="TODO"/>
     				</div>
     				<div className="column">
-    					<h3 className="ui block header"> In Progress </h3>
+    					<h3 className="ui block header" style={{fontFamily: "Roboto", fontWeight: "400", textAlign: "center"}}> In Progress </h3>
     					<TaskList tasks={this.props.tasksInProgress} status="IN_PROGRESS"/>
     				</div>
     				<div className="column">
-    					<h3 className="ui block header"> Done </h3>
+    					<h3 className="ui block header" style={{fontFamily: "Roboto", fontWeight: "400", textAlign: "center"}}> Done </h3>
     					<TaskList tasks={this.props.tasksDone} status="DONE"/>
     				</div>
     			</div>
   			</div>
-		)
+		);
+	}
+
+	renderProgressBar = () => {
+		return(
+			<div style={{marginTop: "3%"}}>
+				<Progress style={{margin: "0px 10px",}} size="large" percent={this.props.progress} indicating />	
+				<p style={{textAlign: "center", fontFamily: "Roboto", fontWeight: "300"}}>Task Completion Status</p>
+			</div>	
+		);
 	}
 }
 
 const mapStateToProps = (state) => {
+
+	if(state.project != null){
+		var percentComplete = ((state.project.doneCount + (state.project.inProgCount/2.0)) / state.project.totalTaskCount) * 100;
+	}
+
 	return { 
 		tasks: state.tasks,
 		tasksTodo: filterTasks(state.tasks, "Todo"),
 		tasksInProgress: filterTasks(state.tasks, "In Progress"),
-		tasksDone: filterTasks(state.tasks, "Done")
+		tasksDone: filterTasks(state.tasks, "Done"),
+		progress: percentComplete
 	}
 }
 
@@ -83,4 +101,4 @@ const filterTasks = (tasks, status) => {
 	return tasks.filter(task => task.status === status);
 }
 
-export default connect(mapStateToProps, {getTasks, clearTask})(TaskBoard);
+export default connect(mapStateToProps, {getTasks, getProject, clearTask})(TaskBoard);
