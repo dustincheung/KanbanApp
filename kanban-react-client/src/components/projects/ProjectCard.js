@@ -5,6 +5,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
+import {Progress} from "semantic-ui-react";
 
 import {deleteProject} from "../../actions";
 
@@ -19,7 +20,7 @@ class ProjectCard extends React.Component{
 
 		return(
 			<div className="card" style={{marginTop: "2%"}}>
-  				{this.renderTag()}
+  				{this.renderCardHeader()}
   				<div className="card-body">
     				<div className="ui grid">
   						<div className="ten wide column">
@@ -28,13 +29,16 @@ class ProjectCard extends React.Component{
   						<div className="six wide column">
   							{this.renderButtons()}
   						</div>
+              <div className="sixteen wide column">
+                {this.renderProgressBar()}
+              </div>
 					</div>
   				</div>
 			</div>				
 		);
 	}
 
-  renderTag = () => {
+  renderCardHeader = () => {
     return(
       <div className="card-header">
           {this.props.project.projTag}
@@ -94,7 +98,21 @@ class ProjectCard extends React.Component{
   onDeleteClick = (event) => {
       event.stopPropagation();
       this.props.deleteProject(this.props.project.projTag);
+  }
+
+  renderProgressBar = () => {
+
+    if(this.props.project != null){
+      var percentComplete = ((this.props.project.doneCount + (this.props.project.inProgCount/2.0)) / this.props.project.totalTaskCount) * 100;
     }
+
+    return(
+      <div style={{marginTop: "3%"}}>
+        <Progress style={{margin: "0px 10px",}} size="large" percent={percentComplete} indicating />  
+        <p style={{textAlign: "center", fontFamily: "Roboto", fontWeight: "300"}}>Task Completion Status</p>
+      </div>  
+    );
+  }
 }
 
 export default connect(null, {deleteProject})(ProjectCard);
