@@ -35,8 +35,9 @@ class TaskCard extends React.Component{
 		return(
 			<div className="ui card" style={{width: "100%", backgroundColor: this.color}}>
   				<div className="content">
-    				<h4 className="ui right floated sub header">{this.task.taskTag}</h4>
+    				<h3 className="ui right floated sub header">{this.task.taskTag}</h3>
     				<div className="header"> {this.task.taskTitle} </div>
+            <div class="ui right floated meta">{this.task.dueDate}</div>
     				<div className="description">
       					<p>{this.task.taskDescription}</p>
     				</div>
