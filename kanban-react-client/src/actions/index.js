@@ -171,8 +171,6 @@ export const updateTask = (projTag, taskTag, formValues) => {
 			//b/c our task has same primary key, mysql db will know to save over the task with same primary key
 			//otherwise we would have to find and replace task using taskTag in backend
 			const response = await axios.put("/projects/" + projTag + "/tasks/" + taskTag, task);
-			console.log("update Response");
-			console.log(response.data);
 			dispatch({type: "UPDATE_TASK", payload: response.data});
 			history.push("/projects/" + projTag + "/tasks");
 

@@ -37,7 +37,7 @@ class TaskCard extends React.Component{
   				<div className="content">
     				<h3 className="ui right floated sub header">{this.task.taskTag}</h3>
     				<div className="header"> {this.task.taskTitle} </div>
-            <div class="ui right floated meta">{this.task.dueDate}</div>
+            <div className="ui right floated meta">{this.task.dueDate}</div>
     				<div className="description">
       					<p>{this.task.taskDescription}</p>
     				</div>
