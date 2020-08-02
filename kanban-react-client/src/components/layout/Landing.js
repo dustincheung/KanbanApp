@@ -19,7 +19,7 @@ const renderHeader = () => {
 	return(
 		<div className="sixteen wide column" style={{backgroundColor: "#A7DDFE", padding: "7%"}}>
   			<h1 style={{fontFamily: "Roboto", fontSize: "700%", textAlign: "center"}}> KanbanTool </h1>
-  			<h3 style={{fontFamily: "Roboto", fontWeight: "300", textAlign: "center"}}> Increase your overall productivity by easily applying kanban methodology to all of your projects. </h3>
+  			<h3 style={{fontFamily: "Roboto", fontWeight: "300", textAlign: "center"}}> Increase your overall productivity by easily applying kanban methodology to all of your personal projects. </h3>
   		</div>
 	);
 }
@@ -44,7 +44,7 @@ const renderInfo = () => {
       						<div className="image">
       						</div>
       						<div className="content">
-        						<h4 className="header">Clearly visualize the whole scope of a project</h4>
+        						<h4 className="header" style={{textAlign: "center"}}>Clearly visualize the whole scope of a project</h4>
       						</div>
     					</div>
   					</div>	
@@ -53,7 +53,7 @@ const renderInfo = () => {
      				<div className="image">
     				</div>
       					<div className="content">
-        					<h4 className="header">Easily track the status and priority of each task item</h4>
+        					<h4 className="header" style={{textAlign: "center"}}>Easily track the status and priority of each task item</h4>
       					</div>
     				</div>
   				</div>
@@ -62,7 +62,7 @@ const renderInfo = () => {
       					<div className="image">
       					</div>
       					<div className="content">
-        					<h4 className="header">See insightful statistics about the progress of your project</h4>
+        					<h4 className="header" style={{textAlign: "center"}}>See insightful statistics about your project progress</h4>
       					</div>
     				</div>
   				</div>						

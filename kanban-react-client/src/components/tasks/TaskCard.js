@@ -52,14 +52,23 @@ class TaskCard extends React.Component{
     const taskEditPath = "/projects/" + this.task.projTag + "/tasks/" + this.task.taskTag + "/edit";
 
     return(
-      <div>
-        <Link className="left floated tiny circular ui icon button" to={taskEditPath}>
-          <i className="expand icon"></i>
-        </Link>
-        <button className="right floated tiny circular ui icon button" onClick={(event) => {this.onDeleteClick(event)}}>
-          <i className="trash alternate outline icon"></i>
-        </button>
-       </div>
+      <div className="ui equal width grid">
+        <div className="column">
+          <Link className="left floated tiny circular ui icon button" to={taskEditPath}>
+            <i className="expand icon"></i>
+          </Link>
+        </div>
+        <div className="column">
+          <p style={{textAlign: "center"}}>
+            {this.convertPriority(this.task.priority)}
+          </p>
+        </div>
+        <div className="column">
+          <button className="right floated tiny circular ui icon button" onClick={(event) => {this.onDeleteClick(event)}}>
+            <i className="trash alternate outline icon"></i>
+          </button>
+        </div>
+      </div>
     );
   }
 
@@ -67,6 +76,19 @@ class TaskCard extends React.Component{
     event.stopPropagation();
     await this.props.deleteTask(this.props.task.projTag, this.props.task.taskTag);
     this.props.getProject(this.props.task.projTag);
+  }
+
+  convertPriority = (priorityNum) => {
+    switch(priorityNum){
+      case 3:
+        return "Low Priority";
+      case 2: 
+        return "Medium Priority";
+      case 1:
+        return "High Priority";
+      default:
+        return "Low Priority";
+    }
   }
 }
 

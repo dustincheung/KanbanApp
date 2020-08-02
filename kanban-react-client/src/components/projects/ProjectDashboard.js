@@ -25,7 +25,7 @@ class ProjectDashbord extends React.Component{
 				<div className="ui grid">
   					<div className="thirteen wide column">
   						<h1 className="display-4" style={{fontFamily: "Roboto", fontWeight: "400"}}>Projects Dashboard</h1>
-  						<p className="lead" style={{fontFamily: "Roboto"}}>This is where you can view all of your projects.</p>
+  						<p className="lead" style={{fontFamily: "Roboto"}}>This is where you can view and manage all of your projects.</p>
   					</div>
   					<div className="three wide column">
   						{this.renderCreateButton()}

@@ -109,7 +109,9 @@ class ProjectCard extends React.Component{
     return(
       <div style={{marginTop: "3%"}}>
         <Progress style={{margin: "0px 10px",}} size="large" percent={percentComplete} indicating />  
-        <p style={{textAlign: "center", fontFamily: "Roboto", fontWeight: "300"}}>Task Completion Status</p>
+        <p style={{textAlign: "center", fontFamily: "Roboto", fontWeight: "300"}}>
+          Task Completion Status (Due: {this.props.project.endDate})
+        </p>
       </div>  
     );
   }
