@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
@@ -21,10 +22,15 @@ import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import kanbanapp.model.User;
 import static kanbanapp.security.SecurityConstants.EXPIRATION_TIME;
-import static kanbanapp.security.SecurityConstants.JWT_SECRET;
+//import static kanbanapp.security.SecurityConstants.JWT_SECRET;
 
 @Component
 public class JwtTokenProvider {
+	
+	//jwtsecret comes from a custom configuration in both dev and prod spring profiles
+	@Value("${jwtsecret}")
+    private String jwtSecret;
+	
 	//generate token
 	public String generateToken(Authentication authentication) {
 		//obtain curr user, date, and calculate expiration time
@@ -47,14 +53,14 @@ public class JwtTokenProvider {
                 .setClaims(claims)
                 .setIssuedAt(currTime)
                 .setExpiration(expireTime)
-                .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
+                .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
 	}
 	
 	//validate token
 	public boolean validateToken(String token) {
 		try {
-			Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token);
+			Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
 			return true;
 		}catch (MalformedJwtException e){
             System.out.println("JWT Token is invalid");
@@ -72,7 +78,7 @@ public class JwtTokenProvider {
 	
 	//obtain user id from token, parsing out user information from token
 	public Long getUserIdFromJWT(String token){
-        Claims claims = Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token).getBody();
+        Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
         
         //parse id
         String id = (String)claims.get("id");
