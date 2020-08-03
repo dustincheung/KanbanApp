@@ -35,20 +35,28 @@ As you work on your project and update statuses of tasks you will see the task c
 
 ## App Demo:apple:
 ### User Authentication (JWT Spring Security):
-* Routes are all protected, if user is not logged in it will redirect to login
+* Routes are all protected, if user is not logged in and attempts to access protected route it will redirect to login
+* Confirm password validation
+* Passwords stored in database using BCrypt encoding
+
 ![User Auth](./demo/User-Auth.gif)
 
 ### Project Dashboard: Creating/editing/deleting a project:
-![Spotify OAuth](./demo/CreationEditDelete-Playlist.gif)
+* Redux Form validation to ensure correct input
+* Backend routes will also respond with displayed errors if form input is not correct
+
+![Spotify OAuth](./demo/Crud-Project.gif)
 
 ### Kanban Board: Creating/editing/deleting a task:
-![Spotify OAuth](./demo/AddingRemoving-Tracks.gif)
+* Redux Form validation to ensure correct input
+* Backend routes will also respond with displayed errors if form input is not correct
 
-### Sharing a playlist to allow for collaboration:
-![Spotify OAuth](./demo/Sharing-a-collab-playlist.gif)
+![Spotify OAuth](./demo/Crud-Tasks.gif)
 
 ### Task Completion Statistics for a Project:
-![Spotify OAuth](./demo/User-collaboration.gif)
+* Showcases task status change and completion progress statistics
+
+![Spotify OAuth](./demo/status-stats.gif)
 
 ## Built With:hammer:
 ### Front-End:
@@ -61,15 +69,16 @@ As you work on your project and update statuses of tasks you will see the task c
 * A little bit of [Semantic UI React](https://react.semantic-ui.com/) - React component library
 
 ### Back-End:
-* [Spring Boot]() - 
-* [MySQL]() - 
-* [Spring Security]() - 
-* [Maven]() - 
+* [Spring Boot](https://spring.io/projects/spring-boot) - Java-based framework that takes an opinionated view of Spring to make it easy to build apps
+* [Spring Security](https://spring.io/projects/spring-security) - Spring Security is a powerful and highly customizable authentication and access-control framework	
+* [MySQL](https://www.mysql.com) - Relational database management system that uses tables
+* [JPA](https://spring.io/projects/spring-data-jpa) - handles management of relational data in enterprise Java applications, makes it easy to easily implement JPA based repositories
+* [Maven](https://maven.apache.org) - Maven is a build automation and dependency management tool used for Java projects
 
 ### Other Significant Packages (Front-End & Back-End):
-* [JPA]() -
-* [gson]() -  
-* [jjwt]() - 
+* [gson](https://github.com/google/gson) - Open-source Java library to serialize and deserialize Java objects to JSON 
+* [jjwt](https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt) - Helps to create and verify JWTs
+* [jwt-decode](https://www.npmjs.com/package/jwt-decode) - Library that helps decoding JWTs token
 * [Axios](https://www.npmjs.com/package/axios) - Promise based HTTP client for the browser and node.js
 * [React-router-dom](https://www.npmjs.com/package/react-router-dom) - DOM bindings for React Router
 * [Redux-form](https://www.npmjs.com/package/redux-form) - Works with React Redux to enable an html form in React to use Redux to store all of its state
@@ -77,7 +86,7 @@ As you work on your project and update statuses of tasks you will see the task c
 
 ## Deployment:computer:
 
-* [SpotifyManager is deployed on Heroku here](https://mykanbantool.herokuapp.com/)
+* [KanbanTool is deployed on Heroku here](https://mykanbantool.herokuapp.com/)
 
 ## Authors:pencil2:
 
