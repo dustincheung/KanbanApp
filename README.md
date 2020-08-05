@@ -60,8 +60,8 @@ As you work on your project and update statuses of tasks you will see the task c
 
 ## Built With:hammer:
 ### Front-End:
-* [HTML5] - Hypertext Markup Language
-* [CSS3] - Cascading Style Sheets
+* HTML5 - Hypertext Markup Language
+* CSS3 - Cascading Style Sheets
 * [React.js](https://reactjs.org) - JavaScript front-end library using components to build user interfaces
 * [React-Redux.js](https://reactjs.org) - Predictable state container for JavaScript apps
 * [Semantic UI](https://semantic-ui.com) - CSS framework
