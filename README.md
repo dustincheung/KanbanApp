@@ -1,9 +1,9 @@
 # [KanbanTool](https://mykanbantool.herokuapp.com/):memo:
 
-KanbanTool is a full stack web application built with React Redux for the front-end, Spring Boot for the back-end
-and MySQL for the database.  KanbanTool provides users with a clear easy to use gui so that they are able to apply
-Kanban Methodology to all their personal projects!  More specifically, it allows users to modify and manage their 
-personal projects and project's sub tasks while also providing them with insightful statistics about completion.
+KanbanTool is a full stack web application built with **React Redux** for the front-end, **Spring Boot** for the **REST API** back-end,
+**JPA** for object-relational mapping, and **MySQL** for the database. KanbanTool provides users with a clear easy to use gui so that 
+they are able to apply Kanban Methodology to all their personal projects!  More specifically, it allows users to modify and 
+manage their personal projects and project's sub tasks while also providing them with insightful statistics about completion.
 It supports the following use cases:
 * User Authentication (JSON Web Tokens w/ Spring Security)
 * creating a project
